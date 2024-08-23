@@ -10,6 +10,8 @@ void quit();
 //Start all other Managers and get them ready to run the game
 int GameManager::Start()
 {
+	cout << "Starting Engine...\n\n";
+
 	if (Window.Start())
 	{
 		cout << "WindowManager failed to start\n";
@@ -21,6 +23,7 @@ int GameManager::Start()
 	}
 	cout << "InputManager started\n";
 
+	//Temporary Escape to Quit for ease of testing
 	Input.Escape.add(quit);
 
 	return 0;
@@ -51,10 +54,10 @@ GameManager& GameManager::getInstance()
 	return single;
 }
 
-//Private Constructor
+//Private Constructor for singleton functionallity
 GameManager::GameManager()
 {
-	//Private Constructor for singleton functionallity
+	
 }
 
 void quit()

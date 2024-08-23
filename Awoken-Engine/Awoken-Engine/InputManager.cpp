@@ -4,22 +4,32 @@ InputManager::InputManager()
 {
 }
 
+//start the input manager
 int InputManager::Start()
 {
 	return 0;
 }
 
+//free any data on the heap
 int InputManager::Stop()
 {
 	return 0;
 }
 
+//singleton get function
 InputManager& InputManager::getInstance()
 {
 	static InputManager single;
 	return single;
 }
 
+//Input function for mouse movement
+void InputManager::mouseMove(float posx, float posy)
+{
+
+}
+
+//Process all key presses on the window and transfer them to Events
 void InputManager::processInputs(GLFWwindow* window)
 {
 	//Long if statements handling the inputs from GLFW into the engine events

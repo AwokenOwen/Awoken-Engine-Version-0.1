@@ -17,6 +17,10 @@ public:
 	//singleton get function
 	static InputManager& getInstance();
 
+	//Input function for mouse movement
+	void mouseMove(float posx, float posy);
+
+	//Process all key presses on the window and transfer them to Events
 	void processInputs(GLFWwindow* window);
 
 #pragma region Key and Mouse Events
@@ -121,7 +125,8 @@ public:
 	Event NumNine, NumNine_Pressed, NumNine_Released;
 	Event LeftClick, LeftClick_Pressed, LeftClick_Released;
 	Event RightClick, RightClick_Pressed, RightClick_Released;
-	MouseEvent MouseMove;
+	MouseEvent MouseOffset;
+	MouseEvent MousePosition;
 	
 #pragma endregion
 
