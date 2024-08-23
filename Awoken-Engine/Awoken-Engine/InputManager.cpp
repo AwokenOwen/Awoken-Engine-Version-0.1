@@ -26,13 +26,69 @@ InputManager& InputManager::getInstance()
 //Input function for mouse movement
 void InputManager::mouseMove(float posx, float posy)
 {
+	if (firstMouse)
+	{
+		lastx = posx;
+		lasty = posy;
+		firstMouse = false;
+	}
 
+	float offsetx = posx - lastx;
+	float offsety = posy - lasty;
+
+	lastx = posx;
+	lasty = posy;
+
+	MouseOffset.callEvent(offsetx, offsety);
+	MousePosition.callEvent(posx, posy);
 }
 
 //Process all key presses on the window and transfer them to Events
 void InputManager::processInputs(GLFWwindow* window)
 {
 	//Long if statements handling the inputs from GLFW into the engine events
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1))
+	{
+		MouseOne.callEvent();
+		if (MouseOne_bool == false)
+		{
+			MouseOne_Pressed.callEvent();
+			MouseOne_bool = true;
+		}
+	}
+	else if (MouseOne_bool == true)
+	{
+		MouseOne_Released.callEvent();
+		MouseOne_bool = false;
+	}
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_2))
+	{
+		MouseTwo.callEvent();
+		if (MouseTwo_bool == false)
+		{
+			MouseTwo_Pressed.callEvent();
+			MouseTwo_bool = true;
+		}
+	}
+	else if (MouseTwo_bool == true)
+	{
+		MouseTwo_Released.callEvent();
+		MouseTwo_bool = false;
+	}
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_3))
+	{
+		MouseThree.callEvent();
+		if (MouseThree_bool == false)
+		{
+			MouseThree_Pressed.callEvent();
+			MouseThree_bool = true;
+		}
+	}
+	else if (MouseThree_bool == true)
+	{
+		MouseThree_Released.callEvent();
+		MouseThree_bool = false;
+	}
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE))
 	{
 		Escape.callEvent();

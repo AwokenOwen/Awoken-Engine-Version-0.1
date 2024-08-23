@@ -123,8 +123,9 @@ public:
 	Event NumSeven, NumSeven_Pressed, NumSeven_Released;
 	Event NumEight, NumEight_Pressed, NumEight_Released;
 	Event NumNine, NumNine_Pressed, NumNine_Released;
-	Event LeftClick, LeftClick_Pressed, LeftClick_Released;
-	Event RightClick, RightClick_Pressed, RightClick_Released;
+	Event MouseOne, MouseOne_Pressed, MouseOne_Released;
+	Event MouseTwo, MouseTwo_Pressed, MouseTwo_Released;
+	Event MouseThree, MouseThree_Pressed, MouseThree_Released;
 	MouseEvent MouseOffset;
 	MouseEvent MousePosition;
 	
@@ -132,6 +133,10 @@ public:
 
 private:
 	InputManager();
+
+	//mouse movement variables
+	bool firstMouse = true;
+	float lastx, lasty;
 
 #pragma region bools
 	bool Escape_bool;
@@ -231,5 +236,8 @@ private:
 	bool NumEight_bool;
 	bool NumNine_bool;
 	bool Decimal_bool;
+	bool MouseOne_bool;
+	bool MouseTwo_bool;
+	bool MouseThree_bool;
 #pragma endregion
 };
