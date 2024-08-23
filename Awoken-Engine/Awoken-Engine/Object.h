@@ -9,6 +9,7 @@ using namespace std;
 struct Transform
 {
 	vec3 localPosition;
+	//pitch, yaw, roll, rotations
 	vec3 localRotation;
 	vec3 localScale;
 
@@ -27,9 +28,18 @@ struct Transform
 		right = vec3(1.0f, 0.0f, 0.0f);
 	}
 
-	vec3 Translate(vec3 translation) 
+	//update the directional vectors
+	vec3 updateDirectionalVectors() 
 	{
-		return localPosition + translation;
+		forward.x = sin(localRotation.y);
+		forward.y = -(sin(localPosition.x) * cos(localRotation.y));
+		forward.z = -(cos(localRotation.x) * cos(localRotation.y));
+
+		right.x = sin(localRotation.y);
+		right.y = -(sin(localPosition.z) * cos(localRotation.y));
+		right.z = -(cos(localRotation.z) * cos(localRotation.y));
+
+		up = cross(forward, right);
 	}
 };
 

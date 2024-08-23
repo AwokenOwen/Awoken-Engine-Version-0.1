@@ -138,6 +138,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="C:\Users\okniz\OneDrive\Documents\Resources\glad\src\glad.c" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="InputManager.cpp" />

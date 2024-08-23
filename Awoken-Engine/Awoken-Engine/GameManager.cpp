@@ -26,12 +26,16 @@ int GameManager::Start()
 	//Temporary Escape to Quit for ease of testing
 	Input.Escape.add(quit);
 
+
+	cout << "Game Manager Started\n\n";
 	return 0;
 }
 
 //Run the game AKA the main While loop that lets the game run
 void GameManager::Run()
 {
+	cout << "Starting Game...\n\n";
+
 	while (!glfwWindowShouldClose(Window.getWindow()))
 	{
 		Window.Clear();
