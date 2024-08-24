@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include "WindowManager.h"
 #include "InputManager.h"
+#include "ResourceManager.h"
 #include "iostream"
 
 using namespace std;
@@ -22,10 +23,14 @@ int GameManager::Start()
 		cout << "InputManager failed to start\n";
 	}
 	cout << "InputManager started\n";
+	if (Resource.Start())
+	{
+		cout << "ResourceManager failed to start\n";
+	}
+	cout << "ResourceManager started\n";
 
 	//Temporary Escape to Quit for ease of testing
 	Input.Escape.add(quit);
-
 
 	cout << "Game Manager Started\n\n";
 	return 0;
@@ -48,7 +53,16 @@ void GameManager::Run()
 //Shut Down all Managers freeing all data
 void GameManager::Stop()
 {
+	cout << "Stopping Engine...\n\n";
 
+	Window.Stop();
+	cout << "Shut Down Window Manager\n";
+	Input.Stop();
+	cout << "Shut Down Input Manager\n";
+	Resource.Stop(); 
+	cout << "Shut Down Resource Manager\n";
+
+	cout << "Shut Down Game Manager\n";
 }
 
 //GameManager Singleton

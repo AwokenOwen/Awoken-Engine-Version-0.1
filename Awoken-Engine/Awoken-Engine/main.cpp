@@ -5,4 +5,6 @@ int main()
 	GM.Start();
 
 	GM.Run();
+
+	GM.Stop();
 }

@@ -5,6 +5,7 @@
 Object::Object()
 {
 	//set default variables add to the ToBeAdded vector in WorldManager (Coming soon)
+	enabled = true;
 }
 
 //called once at the start of a scene
@@ -12,7 +13,7 @@ void Object::Awake()
 {
 	for (int i = 0; i < componentsSize; i++)
 	{
-		if (components[i]->enabled)
+		if (components[i]->getActiveState())
 		{
 			components[i]->Awake();
 		}
@@ -24,11 +25,13 @@ void Object::OnEnable()
 {
 	for (int i = 0; i < componentsSize; i++)
 	{
-		if (components[i]->enabled)
+		if (components[i]->getActiveState())
 		{
 			components[i]->OnEnable();
 		}
 	}
+
+	enabled = true;
 }
 
 //called on the first frame if enabled
@@ -36,7 +39,7 @@ void Object::Start()
 {
 	for (int i = 0; i < componentsSize; i++)
 	{
-		if (components[i]->enabled)
+		if (components[i]->getActiveState())
 		{
 			components[i]->Start();
 		}
@@ -48,7 +51,7 @@ void Object::Update()
 {
 	for (int i = 0; i < componentsSize; i++)
 	{
-		if (components[i]->enabled)
+		if (components[i]->getActiveState())
 		{
 			components[i]->Update();
 		}
@@ -60,7 +63,7 @@ void Object::LateUpdate()
 {
 	for (int i = 0; i < componentsSize; i++)
 	{
-		if (components[i]->enabled)
+		if (components[i]->getActiveState())
 		{
 			components[i]->LateUpdate();
 		}
@@ -72,11 +75,25 @@ void Object::OnDisable()
 {
 	for (int i = 0; i < componentsSize; i++)
 	{
-		if (components[i]->enabled)
+		if (components[i]->getActiveState())
 		{
 			components[i]->OnDisable();
 		}
 	}
+	enabled = false;
+}
+
+void Object::Destroy()
+{
+	OnDisable();
+
+	components.clear();
+
+	for (int i = 0; i < children.size(); i++)
+	{
+		children[i]->Destroy();
+	}
+	delete this;
 }
 
 //return parent object if there is one
@@ -91,6 +108,27 @@ void Object::addComponent(Component* component)
 
 	components.push_back(component);
 	componentsSize++;
+}
+
+void Object::setActive(bool activeState)
+{
+	if (activeState != enabled)
+	{
+		if (activeState)
+		{
+			OnEnable();
+		}
+		else
+		{
+			OnDisable();
+		}
+		enabled = activeState;
+	}
+}
+
+bool Object::getActiveState()
+{
+	return enabled;
 }
 
 mat4 Object::modelMatrix()
@@ -179,9 +217,11 @@ vec3 Object::worldScale()
 void Object::setParent(Object* parent)
 {
 	this->parent = parent;
+	parent->children.push_back(this);
 }
 
 void Object::setChild(Object* child) 
 {
 	child->setParent(this); 
+	children.push_back(child);
 }

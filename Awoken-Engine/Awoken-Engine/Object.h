@@ -62,6 +62,8 @@ public:
 	virtual void LateUpdate();
 	//called on the last frame it is enabled
 	virtual void OnDisable();
+	//to be called when Destroying it self
+	virtual void Destroy();
 
 	//get the parent object if there is one
 	Object* getParent();
@@ -71,8 +73,13 @@ public:
 	//transfrom data stored here
 	Transform transform;
 
+	void setActive(bool activeState);
+	bool getActiveState();
+
 private:
 	Object* parent = nullptr;
+
+	vector<Object*> children;
 
 	mat4 modelMatrix();
 
@@ -85,4 +92,7 @@ private:
 
 	vector<Component*> components;
 	int componentsSize = 0;
+
+	bool enabled;
+
 };

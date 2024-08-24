@@ -22,8 +22,9 @@ public:
 
 	void setParent(Object* parent);
 
-	bool enabled;
 
 private:
 	Object* parent = nullptr;
+
+	bool enabled;
 };
