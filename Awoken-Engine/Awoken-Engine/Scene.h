@@ -1,13 +1,7 @@
 #pragma once
 #include <string>
 
-#include "boost/archive/text_iarchive.hpp"
-#include "boost/archive/text_oarchive.hpp"
-#include "boost/serialization/vector.hpp"
-
 using namespace std;
-using namespace boost;
-using namespace serialization;
 
 class Object;
 class Scene
@@ -36,14 +30,4 @@ private:
 	vector<Object*> toBeDeleted;
 
 	string name;
-
-	friend class boost::serialization::access;
-	template<class Archive>
-	void serialize(Archive& ar, const unsigned int version)
-	{
-		ar& name;
-		ar& inScene;
-		ar& toBeAdded;
-		ar& toBeDeleted;
-	}
 };
