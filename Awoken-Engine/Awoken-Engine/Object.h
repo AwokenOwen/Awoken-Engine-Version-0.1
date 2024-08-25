@@ -2,6 +2,7 @@
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 #include <vector>
+#include "nlohmann/json.hpp"
 
 using namespace glm;
 using namespace std;
@@ -76,6 +77,8 @@ public:
 	void setActive(bool activeState);
 	bool getActiveState();
 
+	int addChild(Object* child);
+
 private:
 	Object* parent = nullptr;
 
@@ -88,11 +91,9 @@ private:
 	vec3 worldScale();
 
 	void setParent(Object* parent);
-	void setChild(Object* child);
 
 	vector<Component*> components;
 	int componentsSize = 0;
 
 	bool enabled;
-
 };

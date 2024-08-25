@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -21,7 +22,7 @@ public:
 	void LateUpdate();
 	//called on the last frame it is enabled
 	void OnDisable();
-
+	//returns the name of the Scene
 	string getName();
 
 private:

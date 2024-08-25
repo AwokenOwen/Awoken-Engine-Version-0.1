@@ -22,6 +22,8 @@ public:
 
 	void setParent(Object* parent);
 
+	bool getActiveState();
+	void setActive(bool activeState);
 
 private:
 	Object* parent = nullptr;

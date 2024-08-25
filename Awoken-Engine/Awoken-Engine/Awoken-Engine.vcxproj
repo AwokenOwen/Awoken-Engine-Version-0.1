@@ -71,11 +71,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\okniz\OneDrive\Documents\Resources\boost_1_86_0;C:\Users\okniz\OneDrive\Documents\Resources\glm;C:\Users\okniz\OneDrive\Documents\Resources\glfw-3.4.bin.WIN64\include;C:\Users\okniz\OneDrive\Documents\Resources\glad\include;C:\Users\okniz\OneDrive\Documents\Resources\Assimp\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\okniz\OneDrive\Documents\Resources\Json;C:\Users\okniz\OneDrive\Documents\Resources\boost_1_86_0;C:\Users\okniz\OneDrive\Documents\Resources\glm;C:\Users\okniz\OneDrive\Documents\Resources\glfw-3.4.bin.WIN64\include;C:\Users\okniz\OneDrive\Documents\Resources\glad\include;C:\Users\okniz\OneDrive\Documents\Resources\Assimp\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\okniz\OneDrive\Documents\Resources\Assimp\lib\x64;C:\Users\okniz\OneDrive\Documents\Resources\glfw-3.4.bin.WIN64\lib-vc2022;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Users\okniz\OneDrive\Documents\Resources\boost_1_86_0;C:\Users\okniz\OneDrive\Documents\Resources\glm;C:\Users\okniz\OneDrive\Documents\Resources\glfw-3.4.bin.WIN64\include;C:\Users\okniz\OneDrive\Documents\Resources\glad\include;C:\Users\okniz\OneDrive\Documents\Resources\Assimp\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\okniz\OneDrive\Documents\Resources\Json;C:\Users\okniz\OneDrive\Documents\Resources\boost_1_86_0;C:\Users\okniz\OneDrive\Documents\Resources\glm;C:\Users\okniz\OneDrive\Documents\Resources\glfw-3.4.bin.WIN64\include;C:\Users\okniz\OneDrive\Documents\Resources\glad\include;C:\Users\okniz\OneDrive\Documents\Resources\Assimp\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\okniz\OneDrive\Documents\Resources\Assimp\lib\x64;C:\Users\okniz\OneDrive\Documents\Resources\glfw-3.4.bin.WIN64\lib-vc2022;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -159,6 +159,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="TestClass.h" />
     <ClInclude Include="WindowManager.h" />
     <ClInclude Include="WorldManager.h" />
   </ItemGroup>

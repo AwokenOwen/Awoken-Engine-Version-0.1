@@ -1,5 +1,6 @@
 #include "Object.h"
 #include "Component.h"
+#include "iostream"
 
 //Default contructor adds itself to the world list
 Object::Object()
@@ -217,11 +218,22 @@ vec3 Object::worldScale()
 void Object::setParent(Object* parent)
 {
 	this->parent = parent;
-	parent->children.push_back(this);
 }
 
-void Object::setChild(Object* child) 
+int Object::addChild(Object* child) 
 {
+	Object* current = parent;
+	while (current != nullptr)
+	{
+		if (current == child)
+		{
+			std::cout << "Error: Child is currently a parent of Object\n";
+			return 1;
+		}
+		current = current->getParent();
+	}
+
 	child->setParent(this); 
 	children.push_back(child);
+	return 0;
 }
