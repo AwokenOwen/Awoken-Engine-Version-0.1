@@ -32,4 +32,5 @@ void WorldManager::setBaseScene(string name)
 
 WorldManager::WorldManager()
 {
+
 }

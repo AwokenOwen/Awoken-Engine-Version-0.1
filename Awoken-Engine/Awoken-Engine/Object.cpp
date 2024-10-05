@@ -237,3 +237,13 @@ int Object::addChild(Object* child)
 	children.push_back(child);
 	return 0;
 }
+
+void Object::to_json(json& j, const Object& p)
+{
+
+}
+
+void Object::from_json(const json& j, Object& p)
+{
+
+}

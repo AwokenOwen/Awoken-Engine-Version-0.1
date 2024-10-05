@@ -159,7 +159,6 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="TestClass.h" />
     <ClInclude Include="WindowManager.h" />
     <ClInclude Include="WorldManager.h" />
   </ItemGroup>
