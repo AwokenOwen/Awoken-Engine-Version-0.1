@@ -11,10 +11,10 @@ class WindowManager
 {
 public:
 	//Initialize the Window manager and call the create window function
-	int Start();
+	int Initialize();
 
 	//free any data on the heap
-	void Stop();
+	void Terminate();
 
 	//Singleton get function
 	static WindowManager& getInstance();

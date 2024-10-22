@@ -8,7 +8,7 @@ int width;
 int height;
 
 //Initialize the Window manager and call the create window function
-int WindowManager::Start()
+int WindowManager::Initialize()
 {
 	glfwInit();
 	createWindow();
@@ -17,7 +17,7 @@ int WindowManager::Start()
 }
 
 //free any data on the heap
-void WindowManager::Stop()
+void WindowManager::Terminate()
 {
 }
 

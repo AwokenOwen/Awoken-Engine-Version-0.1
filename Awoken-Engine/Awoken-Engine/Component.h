@@ -1,4 +1,7 @@
 #pragma once
+#include "nlohmann/json.hpp"
+
+using json = nlohmann::json;
 
 class Object;
 class Component
@@ -6,6 +9,7 @@ class Component
 public:
 	//default contructor
 	Component();
+	Component(Object* _parent);
 
 	//called once at the start of a scene
 	virtual void Awake();
@@ -20,10 +24,14 @@ public:
 	//called on the last frame it is enabled
 	virtual void OnDisable();
 
-	void setParent(Object* parent);
+	Object* getParent();
 
 	bool getActiveState();
 	void setActive(bool activeState);
+
+	virtual void to_json(json& j, const Component& p);
+
+	virtual void from_json(const json& j, Component& p);
 
 private:
 	Object* parent = nullptr;

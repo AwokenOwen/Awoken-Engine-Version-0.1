@@ -87,3 +87,18 @@ string Scene::getName()
 {
 	return name;
 }
+
+void Scene::to_json(json& j, const Scene& p)
+{
+
+}
+
+void Scene::from_json(const json& j, Scene& p)
+{
+
+}
+
+void Scene::Instantiate(Object* obj)
+{
+	toBeAdded.push_back(obj);
+}

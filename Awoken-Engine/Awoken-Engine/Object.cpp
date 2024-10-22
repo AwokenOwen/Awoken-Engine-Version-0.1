@@ -105,8 +105,6 @@ Object* Object::getParent()
 
 void Object::addComponent(Component* component)
 {
-	component->setParent(this);
-
 	components.push_back(component);
 	componentsSize++;
 }
@@ -169,16 +167,30 @@ mat4 Object::modelMatrix()
 
 vec3 Object::worldPosition()
 {
-	vec3 worldPos = transform.localPosition;
+	if (parent == nullptr)
+	{
+		return transform.localPosition;
+	}
+
+	vec3 worldPos = vec3(0);
 
 	Object* currentParent = parent;
+	vec3 currentPos = transform.localPosition;
 
 	while (currentParent != nullptr)
 	{
-		worldPos += currentParent->transform.localPosition;
+		parent->updateDirectionalVectors();
 
+		worldPos += 
+			currentParent->transform.right * currentPos.x +
+			currentParent->transform.up * currentPos.y +
+			currentParent->transform.forward * currentPos.z;
+
+		currentPos = currentParent->transform.localPosition;
 		currentParent = currentParent->getParent();
 	}
+
+	worldPos += currentPos;
 
 	return worldPos;
 }
@@ -213,6 +225,19 @@ vec3 Object::worldScale()
 	}
 
 	return worldSca;
+}
+
+void Object::updateDirectionalVectors()
+{
+	transform.forward.x = sin(worldRotation().y);
+	transform.forward.y = -(sin(worldRotation().x) * cos(worldRotation().y)); 
+	transform.forward.z = -(cos(worldRotation().x) * cos(worldRotation().y)); 
+
+	transform.right.x = sin(worldRotation().y);
+	transform.right.y = -(sin(worldRotation().z) * cos(worldRotation().y)); 
+	transform.right.z = -(cos(worldRotation().z) * cos(worldRotation().y)); 
+
+	transform.up = cross(transform.forward, transform.right); 
 }
 
 void Object::setParent(Object* parent)

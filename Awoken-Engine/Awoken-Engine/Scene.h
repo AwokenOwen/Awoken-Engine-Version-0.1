@@ -1,6 +1,9 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "nlohmann/json.hpp"
+
+using json = nlohmann::json;
 
 using namespace std;
 
@@ -24,6 +27,12 @@ public:
 	void OnDisable();
 	//returns the name of the Scene
 	string getName();
+
+	virtual void to_json(json& j, const Scene& p);
+
+	virtual void from_json(const json& j, Scene& p);
+
+	void Instantiate(Object* obj);
 
 private:
 	vector<Object*> inScene;

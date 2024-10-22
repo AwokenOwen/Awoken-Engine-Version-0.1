@@ -2,14 +2,14 @@
 #include "WorldManager.h"
 #include "Scene.h"
 
-int ResourceManager::Start()
+int ResourceManager::Initialize()
 {
 	return 0;
 }
 
-void ResourceManager::Stop()
+void ResourceManager::Terminate()
 {
-	saveGame();
+	return;
 }
 
 ResourceManager& ResourceManager::getInstance()
@@ -19,11 +19,6 @@ ResourceManager& ResourceManager::getInstance()
 }
 
 int ResourceManager::loadScene(string name)
-{
-	return 0;
-}
-
-int ResourceManager::saveGame()
 {
 	return 0;
 }

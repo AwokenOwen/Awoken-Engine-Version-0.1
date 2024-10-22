@@ -30,20 +30,6 @@ struct Transform
 		up = vec3(0.0f, 1.0f, 0.0f);
 		right = vec3(1.0f, 0.0f, 0.0f);
 	}
-
-	//update the directional vectors
-	vec3 updateDirectionalVectors() 
-	{
-		forward.x = sin(localRotation.y);
-		forward.y = -(sin(localPosition.x) * cos(localRotation.y));
-		forward.z = -(cos(localRotation.x) * cos(localRotation.y));
-
-		right.x = sin(localRotation.y);
-		right.y = -(sin(localPosition.z) * cos(localRotation.y));
-		right.z = -(cos(localRotation.z) * cos(localRotation.y));
-
-		up = cross(forward, right);
-	}
 };
 
 class Component;
@@ -95,6 +81,9 @@ private:
 	vec3 worldPosition();
 	vec3 worldRotation();
 	vec3 worldScale();
+
+	//update the directional vectors
+	void updateDirectionalVectors();
 
 	void setParent(Object* parent);
 

@@ -9,10 +9,10 @@ class InputManager
 {
 public:
 	//start the input manager
-	int Start();
+	int Initialize();
 
 	//free any data on the heap
-	int Stop();
+	int Terminate();
 
 	//singleton get function
 	static InputManager& getInstance();

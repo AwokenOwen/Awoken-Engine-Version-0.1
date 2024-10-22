@@ -6,6 +6,12 @@ Component::Component()
 	enabled = true;
 }
 
+Component::Component(Object* _parent)
+{
+	parent = _parent;
+	enabled = true;
+}
+
 void Component::Awake()
 {
 
@@ -36,9 +42,9 @@ void Component::OnDisable()
 
 }
 
-void Component::setParent(Object* parent)
+Object* Component::getParent()
 {
-	this->parent = parent;
+	return parent;
 }
 
 void Component::setActive(bool activeState)
@@ -55,6 +61,16 @@ void Component::setActive(bool activeState)
 		}
 		enabled = activeState;
 	}
+}
+
+void Component::to_json(json& j, const Component& p)
+{
+
+}
+
+void Component::from_json(const json& j, Component& p)
+{
+
 }
 
 bool Component::getActiveState()

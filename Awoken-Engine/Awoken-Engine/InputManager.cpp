@@ -5,13 +5,13 @@ InputManager::InputManager()
 }
 
 //start the input manager
-int InputManager::Start()
+int InputManager::Initialize()
 {
 	return 0;
 }
 
 //free any data on the heap
-int InputManager::Stop()
+int InputManager::Terminate()
 {
 	return 0;
 }
