@@ -49,6 +49,8 @@ void GameManager::Run()
 	cout << "Loading game with scene " << World.getBaseScene() << "\n\n";
 	World.loadScene(World.getBaseScene());
 
+	Input.Escape.add(quit);
+	
 	while (!glfwWindowShouldClose(Window.getWindow()))
 	{
 		Window.Clear();

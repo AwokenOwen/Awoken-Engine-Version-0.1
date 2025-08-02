@@ -8,16 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="867b3cf4-7a35-4d37-9492-5de2a7ba3c89" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Awoken-Engine/Awoken-Engine.vcxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Awoken-Engine/Awoken-Engine.vcxproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Awoken-Engine/Component.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Awoken-Engine/Component.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Awoken-Engine/Component.h" beforeDir="false" afterPath="$PROJECT_DIR$/Awoken-Engine/Component.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Awoken-Engine/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Awoken-Engine/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Awoken-Engine/GameManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Awoken-Engine/GameManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Awoken-Engine/Object.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Awoken-Engine/Object.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Awoken-Engine/Object.h" beforeDir="false" afterPath="$PROJECT_DIR$/Awoken-Engine/Object.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Awoken-Engine/Scene.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Awoken-Engine/Scene.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Awoken-Engine/Scene.h" beforeDir="false" afterPath="$PROJECT_DIR$/Awoken-Engine/Scene.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Awoken-Engine/WindowManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Awoken-Engine/WindowManager.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Awoken-Engine/WorldManager.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Awoken-Engine/WorldManager.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +88,7 @@
       <updated>1754151156485</updated>
       <workItem from="1754151157717" duration="26000" />
       <workItem from="1754151354403" duration="138000" />
-      <workItem from="1754151522644" duration="1957000" />
+      <workItem from="1754151522644" duration="3308000" />
     </task>
     <servers />
   </component>
