@@ -1,4 +1,7 @@
 #include "Scene.h"
+
+#include <iostream>
+
 #include "Object.h"
 
 Scene::Scene()
@@ -86,16 +89,6 @@ void Scene::OnDisable()
 string Scene::getName()
 {
 	return name;
-}
-
-void Scene::to_json(json& j, const Scene& p)
-{
-
-}
-
-void Scene::from_json(const json& j, Scene& p)
-{
-
 }
 
 void Scene::Instantiate(Object* obj)

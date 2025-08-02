@@ -7,6 +7,7 @@ int WorldManager::Initialize()
 
 void WorldManager::Terminate()
 {
+	delete activeScene;
 }
 
 WorldManager& WorldManager::getInstance()
@@ -20,6 +21,7 @@ int WorldManager::loadScene(string name)
 	//do stuff (set active Scene to the scene with name)
 	//load all objects in the scene
 	//this is the first frame technically
+	activeScene = new Scene();
 	activeScene->Awake();
 	return 0;
 }

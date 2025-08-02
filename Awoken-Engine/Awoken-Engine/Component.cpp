@@ -63,16 +63,6 @@ void Component::setActive(bool activeState)
 	}
 }
 
-void Component::to_json(json& j, const Component& p)
-{
-
-}
-
-void Component::from_json(const json& j, Component& p)
-{
-
-}
-
 bool Component::getActiveState()
 {
 	return enabled;

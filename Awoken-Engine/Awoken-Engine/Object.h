@@ -2,12 +2,9 @@
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 #include <vector>
-#include "nlohmann/json.hpp"
 
 using namespace glm;
 using namespace std;
-
-using json = nlohmann::json;
 
 struct Transform
 {
@@ -66,10 +63,6 @@ public:
 	bool getActiveState();
 
 	int addChild(Object* child);
-
-	virtual void to_json(json& j, const Object& p);
-
-	virtual void from_json(const json& j, Object& p);
 
 private:
 	Object* parent = nullptr;

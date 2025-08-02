@@ -1,7 +1,4 @@
 #pragma once
-#include "nlohmann/json.hpp"
-
-using json = nlohmann::json;
 
 class Object;
 class Component
@@ -28,10 +25,6 @@ public:
 
 	bool getActiveState();
 	void setActive(bool activeState);
-
-	virtual void to_json(json& j, const Component& p);
-
-	virtual void from_json(const json& j, Component& p);
 
 private:
 	Object* parent = nullptr;

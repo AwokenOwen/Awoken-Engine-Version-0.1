@@ -82,7 +82,7 @@ int WindowManager::createWindow()
 	width = mode->width; 
 	height = mode->height; 
 
-	window = glfwCreateWindow(width, height, "Game Engine", monitor, NULL);
+	window = glfwCreateWindow(width, height, "Game Engine", NULL, NULL);
 
 	if (window == NULL)
 	{
