@@ -1,13 +1,19 @@
 #include "MeshRenderer.h"
+#include "WorldManager.h"
+#include "WindowManager.h"
+#include "Scene.h"
+#include "Object.h"
 #include <glad/glad.h>
-#include <ext/matrix_clip_space.hpp>
+#include "glm.hpp"
+#include "gtc/type_ptr.hpp"
+#include <iostream>
 
-MeshRenderer::MeshRenderer()
+MeshRenderer::MeshRenderer(Object* _parent) : Component(_parent)
 {
 	mesh = nullptr;
 }
 
-MeshRenderer::MeshRenderer(Mesh* mesh)
+MeshRenderer::MeshRenderer(Object* _parent, Mesh* mesh) : Component(_parent)
 {
 	this->mesh = mesh;
 }
@@ -59,8 +65,19 @@ void MeshRenderer::setupMesh()
 void MeshRenderer::Draw()
 {
     // draw mesh
+    unsigned int shaderProgram = World.getActiveScene()->getShaderProgram();
 
-    mat4 perspectiveMatrix = ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
+    glUseProgram(shaderProgram);
+
+    mat4 model = mat4(1.0f);
+    mat4 projectionMatrix = Window.getProjectionMatrix();
+    mat4 view = mat4(1.0f);
+    view = translate(view, vec3(0, 0, -1));
+
+    model = projectionMatrix * view * getParent()->worldModelMatrix();
+
+    int modelLoc = glGetUniformLocation(shaderProgram, "model");
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, mesh->indices.size(), GL_UNSIGNED_INT, 0);

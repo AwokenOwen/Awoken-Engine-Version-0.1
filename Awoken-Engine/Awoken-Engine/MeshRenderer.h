@@ -5,9 +5,9 @@
 class MeshRenderer : public Component
 {
 public:
-	MeshRenderer();
+	MeshRenderer(Object* _parent);
 
-	MeshRenderer(Mesh* mesh);
+	MeshRenderer(Object* _parent, Mesh* mesh);
 
 	// called first frame if enabled
 	void OnEnable() override;

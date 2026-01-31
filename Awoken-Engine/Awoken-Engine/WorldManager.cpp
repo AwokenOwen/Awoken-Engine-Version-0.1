@@ -1,5 +1,6 @@
 #include "WorldManager.h"
 #include <ext/matrix_clip_space.hpp>
+#include <iostream>
 
 int WorldManager::Initialize()
 {
@@ -59,6 +60,7 @@ void WorldManager::Start()
 
 void WorldManager::Update()
 {
+	std::cout << ":P" << std::endl;
 	activeScene->Update();
 }
 

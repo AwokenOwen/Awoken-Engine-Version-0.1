@@ -1,5 +1,6 @@
 #include "WindowManager.h"
 #include "InputManager.h"
+#include <ext/matrix_clip_space.hpp>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_cursor_callback(GLFWwindow* window, double xpos, double ypos);
@@ -61,6 +62,11 @@ void WindowManager::Swap()
 	glfwPollEvents(); 
 }
 
+mat4 WindowManager::getProjectionMatrix()
+{
+	return glm::perspective(glm::radians(100.0f), (float)Window.getWidth() / (float)Window.getHeight(), 0.1f, 100.0f);;
+}
+
 //Private contructor for singleton functionallity
 WindowManager::WindowManager()
 {
@@ -112,7 +118,7 @@ void framebuffer_size_callback(GLFWwindow* window, int _width, int _height)
 {
 	width = _width;
 	height = _height;
-	glViewport(0, 0, _width, _height);
+	glViewport(0, 0, width, height);
 }
 
 void mouse_cursor_callback(GLFWwindow* window, double xpos, double ypos)

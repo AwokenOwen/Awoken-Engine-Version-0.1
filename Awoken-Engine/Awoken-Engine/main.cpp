@@ -19,7 +19,7 @@ void loadObjects() {
 
 
 
-	test->addComponent(new MeshRenderer(new Mesh(squareVertices, squareIndices)));
+	test->addComponent(new MeshRenderer(test, new Mesh(squareVertices, squareIndices)));
 }
 
 int main() 

@@ -46,9 +46,13 @@ public:
 	quat GetWorldRotation();
 	vec3 GetWorldScale();
 
+	mat4 worldModelMatrix();
+
 	vec3 GetLocalPosition();
 	quat GetLocalRotation();
 	vec3 GetLocalScale();
+
+	mat4 localModelMatrix();
 
 	void SetLocalPosition(vec3 location);
 	void SetLocalRotation(quat rotation);
@@ -58,9 +62,6 @@ private:
 	Object* parent = nullptr;
 
 	vector<Object*> children;
-
-	mat4 localModelMatrix();
-	mat4 worldModelMatrix();
 
 	void setParent(Object* parent);
 
@@ -74,7 +75,7 @@ private:
 	quat localRotation;
 	vec3 localScale;
 
-	vec3 worldLocation;
+	vec3 worldPosition;
 	//pitch, yaw, roll, rotations
 	quat worldRotation;
 	vec3 worldScale;
@@ -82,7 +83,7 @@ private:
 	vec3 skew;
 	vec4 perspective;
 
-	mat4 rotate(mat4 matrix, quat rotationVector);
-
 	bool firstFrame = true;
+
+	float degree;
 };

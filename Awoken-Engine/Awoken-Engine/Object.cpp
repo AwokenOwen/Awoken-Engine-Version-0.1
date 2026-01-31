@@ -10,6 +10,14 @@ Object::Object()
 	//set default variables and instantiate
 	enabled = true;
 
+	localPosition = vec3(0, 0, 0);
+	localRotation = quat(vec3(0, 0, 0));
+	localScale = vec3(1, 1, 1);
+
+	worldPosition = vec3(0, 0, 0);
+	worldRotation = quat(vec3(0, 0, 0));
+	worldScale = vec3(1, 1, 1);
+
 	World.Instantiate(this);
 }
 
@@ -42,6 +50,7 @@ void Object::OnEnable()
 //called on the first frame if enabled
 void Object::Start()
 {
+	degree = 0;
 	for (int i = 0; i < componentsSize; i++)
 	{
 		if (components[i]->getActiveState())
@@ -54,6 +63,9 @@ void Object::Start()
 //called every frame
 void Object::Update()
 {
+	degree += 0.1f;
+	localRotation = quat(glm::radians(vec3(0, degree, 0)));
+
 	if (firstFrame)
 	{
 		OnEnable();
@@ -143,9 +155,9 @@ mat4 Object::localModelMatrix()
 {
 	mat4 model = mat4(1.0f);
 
-	model = scale(model, GetWorldScale());
-	model = rotate(model, GetWorldRotation());
-	model = translate(model, GetWorldScale());
+	model = scale(model, GetLocalScale());
+	model = rotate(model, glm::angle(GetLocalRotation()), glm::axis(GetLocalRotation()));
+	model = translate(model, GetLocalPosition());
 
 	return model;
 }
@@ -160,7 +172,7 @@ mat4 Object::worldModelMatrix()
 		current = current->parent;
 	}
 	
-	decompose(worldModelMatrix, worldScale, worldRotation, worldLocation, skew, perspective);
+	decompose(worldModelMatrix, worldScale, worldRotation, worldPosition, skew, perspective);
 
 	return worldModelMatrix;
 }
@@ -168,11 +180,6 @@ mat4 Object::worldModelMatrix()
 void Object::setParent(Object* parent)
 {
 	this->parent = parent;
-}
-
-mat4 Object::rotate(mat4 matrix, quat rotationVector)
-{
-	return glm::rotate(matrix, rotationVector.x, vec3(1, 0, 0)) * glm::rotate(matrix, rotationVector.y, vec3(0, 1, 0)) * glm::rotate(matrix, rotationVector.z, vec3(0, 0, 1));
 }
 
 
@@ -196,7 +203,7 @@ int Object::addChild(Object* child)
 
 vec3 Object::GetWorldPosition()
 {
-	return worldLocation;
+	return worldPosition;
 }
 
 quat Object::GetWorldRotation()

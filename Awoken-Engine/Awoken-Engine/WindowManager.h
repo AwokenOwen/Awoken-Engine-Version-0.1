@@ -1,8 +1,10 @@
 #pragma once
 #include <glad/glad.h>
 #include "GLFW/glfw3.h"
+#include "glm.hpp"
 #include "iostream"
 
+using namespace glm;
 using namespace std;
 
 #define Window WindowManager::getInstance()
@@ -31,6 +33,8 @@ public:
 
 	//Swap buffers and pollevents
 	void Swap();
+
+	mat4 getProjectionMatrix();
 
 private:
 	//Private contructor for singleton functionallity

@@ -23,10 +23,14 @@ public:
 
 	void Instantiate(Object* obj);
 
+	unsigned int getShaderProgram();
+
 private:
 	vector<Object*> inScene;
 	vector<Object*> toBeAdded;
 	vector<Object*> toBeDeleted;
 
 	string name;
+
+	unsigned int shaderProgram;
 };
