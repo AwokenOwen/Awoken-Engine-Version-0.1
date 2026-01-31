@@ -2,12 +2,15 @@
 #include "Component.h"
 #include "iostream"
 #include <gtx/matrix_decompose.hpp>
+#include "WorldManager.h"
 
 //Default contructor adds itself to the world list
 Object::Object()
 {
-	//set default variables add to the ToBeAdded vector in WorldManager (Coming soon)
+	//set default variables and instantiate
 	enabled = true;
+
+	World.Instantiate(this);
 }
 
 //called once at the start of a scene
