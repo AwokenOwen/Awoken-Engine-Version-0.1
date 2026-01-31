@@ -19,17 +19,6 @@ void Scene::Awake()
 	}
 }
 
-void Scene::OnEnable()
-{
-	for (int i = 0; i < inScene.size(); i++)
-	{
-		if (inScene[i]->getActiveState())
-		{
-			inScene[i]->OnEnable();
-		}
-	}
-}
-
 void Scene::Start()
 {
 	for (int i = 0; i < inScene.size(); i++)
@@ -73,17 +62,6 @@ void Scene::LateUpdate()
 		toBeDeleted[i]->Destroy();
 	}
 	toBeDeleted.clear();
-}
-
-void Scene::OnDisable()
-{
-	for (int i = 0; i < inScene.size(); i++)
-	{
-		if (inScene[i]->getActiveState())
-		{
-			inScene[i]->OnDisable();
-		}
-	}
 }
 
 string Scene::getName()

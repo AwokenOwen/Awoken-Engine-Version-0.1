@@ -1,5 +1,6 @@
 #include "MeshRenderer.h"
 #include <glad/glad.h>
+#include <ext/matrix_clip_space.hpp>
 
 MeshRenderer::MeshRenderer()
 {
@@ -58,6 +59,9 @@ void MeshRenderer::setupMesh()
 void MeshRenderer::Draw()
 {
     // draw mesh
+
+    mat4 perspectiveMatrix = ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.0f);
+
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, mesh->indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);

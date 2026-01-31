@@ -1,4 +1,5 @@
 #include "WorldManager.h"
+#include <ext/matrix_clip_space.hpp>
 
 int WorldManager::Initialize()
 {
@@ -51,6 +52,11 @@ void WorldManager::Awake()
 	activeScene->Awake();
 }
 
+void WorldManager::Start() 
+{
+	activeScene->Start();
+}
+
 void WorldManager::Update()
 {
 	activeScene->Update();
@@ -63,5 +69,5 @@ void WorldManager::LateUpdate()
 
 WorldManager::WorldManager()
 {
-
+	
 }

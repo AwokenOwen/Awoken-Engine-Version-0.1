@@ -14,6 +14,12 @@ public:
 		vec3 position;
 		vec3 normal;
 		vec2 texCoords;
+
+		Vertex(vec3 position, vec3 normal, vec2 texCoords) {
+			this->position = position;
+			this->normal = normal;
+			this->texCoords = texCoords;
+		}
 	};
 
 	struct Texture {
@@ -27,5 +33,6 @@ public:
 	vector<Texture>      textures;
 
 	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
+	Mesh(vector<Vertex> vertices, vector<unsigned int> indices);
 };
 

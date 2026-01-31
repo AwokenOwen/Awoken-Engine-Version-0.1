@@ -39,6 +39,10 @@ int GameManager::Initialize()
 	Input.Escape.add(quit);
 
 	cout << "GameManager Started\n\n";
+
+	cout << "Loading game with scene " << World.getBaseScene() << "\n\n";
+	World.loadScene(World.getBaseScene());
+
 	return 0;
 }
 
@@ -46,11 +50,11 @@ int GameManager::Initialize()
 void GameManager::Run()
 {
 	cout << "Starting Game...\n\n";
-	cout << "Loading game with scene " << World.getBaseScene() << "\n\n";
-	World.loadScene(World.getBaseScene());
 
 	Input.Escape.add(quit);
 	
+	World.Start();
+
 	while (!glfwWindowShouldClose(Window.getWindow()))
 	{
 		Window.Clear();

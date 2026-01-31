@@ -83,4 +83,6 @@ private:
 	vec4 perspective;
 
 	mat4 rotate(mat4 matrix, quat rotationVector);
+
+	bool firstFrame = true;
 };

@@ -54,6 +54,11 @@ void Object::Start()
 //called every frame
 void Object::Update()
 {
+	if (firstFrame)
+	{
+		OnEnable();
+		firstFrame = false;
+	}
 	for (int i = 0; i < componentsSize; i++)
 	{
 		if (components[i]->getActiveState())

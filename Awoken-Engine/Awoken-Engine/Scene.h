@@ -12,16 +12,12 @@ public:
 
 	//called once at the start of a scene
 	void Awake();
-	//called once at the start of the frame it is enabled on
-	void OnEnable();
 	//called on the first frame if enabled
 	void Start();
 	//called every frame
 	void Update();
 	//called every frame after update
 	void LateUpdate();
-	//called on the last frame it is enabled
-	void OnDisable();
 	//returns the name of the Scene
 	string getName();
 

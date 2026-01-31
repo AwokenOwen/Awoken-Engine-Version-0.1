@@ -1,8 +1,10 @@
 #pragma once
 #include <string>
+#include "glm.hpp"
 
 #include "Scene.h"
 
+using namespace glm;
 using namespace std;
 
 #define World WorldManager::getInstance()
@@ -35,11 +37,13 @@ public:
 	void Instantiate(Object* obj);
 
 	//called once at the start of a scene
-	virtual void Awake();
+	void Awake();
+	//called on the first frame if enabled
+	void Start();
 	//called every frame
-	virtual void Update();
+	void Update();
 	//called every frame after update
-	virtual void LateUpdate();
+	void LateUpdate();
 
 private:
 	WorldManager();
