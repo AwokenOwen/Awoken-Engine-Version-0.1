@@ -1,6 +1,7 @@
 #include "Scene.h"
 #include <glad/glad.h>
 #include <iostream>
+#include "Camera.h"
 
 #include "Object.h"
 
@@ -18,7 +19,7 @@ Scene::Scene()
         "out vec4 FragColor;\n"
         "void main()\n"
         "{\n"
-        "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+        "   FragColor = vec4(0.0f, 0.5f, 0.0f, 1.0f);\n"
         "}\0";
 
     unsigned int vertexShader;
@@ -65,6 +66,12 @@ Scene::Scene()
 
 void Scene::Awake()
 {
+    if (camera == nullptr)
+    {
+        camera = new Camera();
+        camera->SetLocalPosition(vec3(0.0f, 1.0f, -1.0f));
+        std::cout << "Camera Created" << std::endl;
+    }
 	for (int i = 0; i < inScene.size(); i++)
 	{
 		if (inScene[i]->getActiveState())
@@ -132,4 +139,9 @@ void Scene::Instantiate(Object* obj)
 unsigned int Scene::getShaderProgram()
 {
 	return shaderProgram;
+}
+
+Camera* Scene::getCamera()
+{
+    return camera;
 }

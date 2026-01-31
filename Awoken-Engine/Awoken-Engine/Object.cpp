@@ -50,7 +50,6 @@ void Object::OnEnable()
 //called on the first frame if enabled
 void Object::Start()
 {
-	degree = 0;
 	for (int i = 0; i < componentsSize; i++)
 	{
 		if (components[i]->getActiveState())
@@ -63,9 +62,6 @@ void Object::Start()
 //called every frame
 void Object::Update()
 {
-	degree += 0.1f;
-	localRotation = quat(glm::radians(vec3(0, degree, 0)));
-
 	if (firstFrame)
 	{
 		OnEnable();
@@ -155,9 +151,9 @@ mat4 Object::localModelMatrix()
 {
 	mat4 model = mat4(1.0f);
 
-	model = scale(model, GetLocalScale());
-	model = rotate(model, glm::angle(GetLocalRotation()), glm::axis(GetLocalRotation()));
 	model = translate(model, GetLocalPosition());
+	model = rotate(model, glm::angle(GetLocalRotation()), glm::axis(GetLocalRotation()));
+	model = scale(model, GetLocalScale());
 
 	return model;
 }
@@ -203,16 +199,19 @@ int Object::addChild(Object* child)
 
 vec3 Object::GetWorldPosition()
 {
+	worldModelMatrix();
 	return worldPosition;
 }
 
 quat Object::GetWorldRotation()
 {
+	worldModelMatrix();
 	return worldRotation;
 }
 
 vec3 Object::GetWorldScale()
 {
+	worldModelMatrix();
 	return worldScale;
 }
 

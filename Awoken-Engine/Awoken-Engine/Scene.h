@@ -1,9 +1,11 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "glm.hpp"
 
 using namespace std;
 
+class Camera;
 class Object;
 class Scene
 {
@@ -25,6 +27,8 @@ public:
 
 	unsigned int getShaderProgram();
 
+	Camera* getCamera();
+
 private:
 	vector<Object*> inScene;
 	vector<Object*> toBeAdded;
@@ -33,4 +37,6 @@ private:
 	string name;
 
 	unsigned int shaderProgram;
+
+	Camera* camera = nullptr;
 };

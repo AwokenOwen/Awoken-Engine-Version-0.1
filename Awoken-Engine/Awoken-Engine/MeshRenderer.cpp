@@ -2,7 +2,7 @@
 #include "WorldManager.h"
 #include "WindowManager.h"
 #include "Scene.h"
-#include "Object.h"
+#include "Camera.h"
 #include <glad/glad.h>
 #include "glm.hpp"
 #include "gtc/type_ptr.hpp"
@@ -71,10 +71,10 @@ void MeshRenderer::Draw()
 
     mat4 model = mat4(1.0f);
     mat4 projectionMatrix = Window.getProjectionMatrix();
-    mat4 view = mat4(1.0f);
-    view = translate(view, vec3(0, 0, -1));
+    mat4 viewMatrix = World.getActiveScene()->getCamera()->getViewMatrix();
 
-    model = projectionMatrix * view * getParent()->worldModelMatrix();
+
+    model = projectionMatrix * viewMatrix * getParent()->worldModelMatrix();
 
     int modelLoc = glGetUniformLocation(shaderProgram, "model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));

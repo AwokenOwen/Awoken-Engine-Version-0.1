@@ -60,7 +60,6 @@ void WorldManager::Start()
 
 void WorldManager::Update()
 {
-	std::cout << ":P" << std::endl;
 	activeScene->Update();
 }
 

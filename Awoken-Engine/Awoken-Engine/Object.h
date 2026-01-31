@@ -84,6 +84,4 @@ private:
 	vec4 perspective;
 
 	bool firstFrame = true;
-
-	float degree;
 };
