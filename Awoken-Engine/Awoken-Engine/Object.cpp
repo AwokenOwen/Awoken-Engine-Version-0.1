@@ -164,7 +164,7 @@ mat4 Object::worldModelMatrix()
 
 	Object* current = parent;
 	while (current != nullptr) {
-		worldModelMatrix = worldModelMatrix * current->localModelMatrix();
+		worldModelMatrix = current->localModelMatrix() * worldModelMatrix;
 		current = current->parent;
 	}
 	

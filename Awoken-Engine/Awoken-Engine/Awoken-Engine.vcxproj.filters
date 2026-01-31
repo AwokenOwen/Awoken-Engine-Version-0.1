@@ -24,13 +24,13 @@
     <ClCompile Include="WindowManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Event.cpp">
+    <ClCompile Include="void_event.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MouseEvent.cpp">
+    <ClCompile Include="float_2_event.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
@@ -77,10 +77,10 @@
     <ClInclude Include="InputManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Event.h">
+    <ClInclude Include="void_event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MouseEvent.h">
+    <ClInclude Include="float_2_event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">

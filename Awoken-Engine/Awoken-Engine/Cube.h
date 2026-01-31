@@ -7,5 +7,9 @@ class Cube : public Object
 {
 public:
 	Cube();
+
+	void Update() override;
+
+	float degree = 0.0f;
 };
 
