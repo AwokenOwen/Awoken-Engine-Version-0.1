@@ -3,11 +3,11 @@
 
 using namespace std;
 
-class MouseEvent
+class float_2_event
 {
 public:
 	//default contructor
-	MouseEvent();
+	float_2_event();
 
 	//Calls all the functions stored in the _functions vector
 	void callEvent(float x, float y);

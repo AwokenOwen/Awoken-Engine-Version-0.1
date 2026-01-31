@@ -3,11 +3,11 @@
 
 using namespace std;
 
-class Event
+class void_event
 {
 public:
 	//default contructor
-	Event();
+	void_event();
 
 	//Calls all the functions stored in the _functions vector
 	void callEvent();

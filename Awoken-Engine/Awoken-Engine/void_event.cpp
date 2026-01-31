@@ -1,12 +1,12 @@
-#include "Event.h"
+#include "void_event.h"
 
 //default contructor
-Event::Event()
+void_event::void_event()
 {
 }
 
 //Calls all the functions stored in the _functions vector
-void Event::callEvent()
+void void_event::callEvent()
 {
 	for (int i = 0; i < _functions.size(); i++)
 	{
@@ -15,7 +15,7 @@ void Event::callEvent()
 }
 
 //add a function to the _functions vector
-void Event::add(void(*function)())
+void void_event::add(void(*function)())
 {
 	_functions.push_back(function);
 }
