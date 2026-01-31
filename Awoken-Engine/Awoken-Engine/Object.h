@@ -1,33 +1,12 @@
 #pragma once
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
+#include "gtc/quaternion.hpp"
+#include <glm/gtx/euler_angles.hpp>
 #include <vector>
 
 using namespace glm;
 using namespace std;
-
-struct Transform
-{
-	vec3 localPosition;
-	//pitch, yaw, roll, rotations
-	vec3 localRotation;
-	vec3 localScale;
-
-	vec3 forward;
-	vec3 up;
-	vec3 right;
-
-	Transform() 
-	{
-		localPosition = vec3(0.0f);
-		localRotation = vec3(0.0f);
-		localScale = vec3(1.0f);
-
-		forward = vec3(0.0f, 0.0f, 1.0f);
-		up = vec3(0.0f, 1.0f, 0.0f);
-		right = vec3(1.0f, 0.0f, 0.0f);
-	}
-};
 
 class Component;
 class Object
@@ -56,27 +35,30 @@ public:
 
 	void addComponent(Component* component);
 
-	//transfrom data stored here
-	Transform transform;
-
 	void setActive(bool activeState);
 	bool getActiveState();
 
 	int addChild(Object* child);
+
+	vec3 GetWorldPosition();
+	quat GetWorldRotation();
+	vec3 GetWorldScale();
+
+	vec3 GetLocalPosition();
+	quat GetLocalRotation();
+	vec3 GetLocalScale();
+
+	void SetLocalPosition(vec3 location);
+	void SetLocalRotation(quat rotation);
+	void SetLocalScale(vec3 scale);
 
 private:
 	Object* parent = nullptr;
 
 	vector<Object*> children;
 
-	mat4 modelMatrix();
-
-	vec3 worldPosition();
-	vec3 worldRotation();
-	vec3 worldScale();
-
-	//update the directional vectors
-	void updateDirectionalVectors();
+	mat4 localModelMatrix();
+	mat4 worldModelMatrix();
 
 	void setParent(Object* parent);
 
@@ -84,4 +66,19 @@ private:
 	int componentsSize = 0;
 
 	bool enabled;
+
+	vec3 localPosition;
+	//pitch, yaw, roll, rotations
+	vec3 localRotation;
+	vec3 localScale;
+
+	vec3 worldLocation;
+	//pitch, yaw, roll, rotations
+	quat worldRotation;
+	vec3 worldScale;
+
+	vec3 skew;
+	vec4 perspective;
+
+	mat4 rotate(mat4 matrix, vec3 rotationVector);
 };

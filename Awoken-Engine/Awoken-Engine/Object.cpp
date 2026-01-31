@@ -1,6 +1,7 @@
 #include "Object.h"
 #include "Component.h"
 #include "iostream"
+#include <gtx/matrix_decompose.hpp>
 
 //Default contructor adds itself to the world list
 Object::Object()
@@ -130,120 +131,42 @@ bool Object::getActiveState()
 	return enabled;
 }
 
-mat4 Object::modelMatrix()
+mat4 Object::localModelMatrix()
 {
 	mat4 model = mat4(1.0f);
 
-	model = translate(model, worldPosition());
-	float angle = 0;
-	vec3 rotationVec;
-	if (worldRotation().x > angle)
-	{
-		angle = worldRotation().x;
-	}
-	if (worldRotation().y > angle)
-	{
-		angle = worldRotation().y;
-	}
-	if (worldRotation().z > angle)
-	{
-		angle = worldRotation().z;
-	}
-
-	if (angle > 0)
-	{
-		rotationVec = worldRotation() / angle;
-	}
-	else
-	{
-		rotationVec = glm::vec3(1.0f);
-	}
-
-	model = rotate(model, radians(angle), rotationVec); 
-	model = scale(model, worldScale());
+	model = scale(model, GetWorldScale());
+	model = rotate(model, GetWorldRotation());
+	model = translate(model, GetWorldScale());
 
 	return model;
 }
 
-vec3 Object::worldPosition()
+mat4 Object::worldModelMatrix()
 {
-	if (parent == nullptr)
-	{
-		return transform.localPosition;
+	mat4 worldModelMatrix = localModelMatrix();
+
+	Object* current = parent;
+	while (current != nullptr) {
+		worldModelMatrix = worldModelMatrix * current->localModelMatrix();
+		current = current->parent;
 	}
+	
+	decompose(worldModelMatrix, worldScale, worldRotation, worldLocation, skew, perspective);
 
-	vec3 worldPos = vec3(0);
-
-	Object* currentParent = parent;
-	vec3 currentPos = transform.localPosition;
-
-	while (currentParent != nullptr)
-	{
-		parent->updateDirectionalVectors();
-
-		worldPos += 
-			currentParent->transform.right * currentPos.x +
-			currentParent->transform.up * currentPos.y +
-			currentParent->transform.forward * currentPos.z;
-
-		currentPos = currentParent->transform.localPosition;
-		currentParent = currentParent->getParent();
-	}
-
-	worldPos += currentPos;
-
-	return worldPos;
-}
-
-vec3 Object::worldRotation()
-{
-	vec3 worldRot = transform.localRotation;
-
-	Object* currentParent = parent; 
-
-	while (currentParent != nullptr)
-	{
-		worldRot += currentParent->transform.localRotation; 
-
-		currentParent = currentParent->getParent(); 
-	}
-
-	return worldRot;
-}
-
-vec3 Object::worldScale()
-{
-	vec3 worldSca = vec3(1.0f);
-
-	Object* currentParent = parent;
-
-	while (currentParent != nullptr)
-	{
-		worldSca *= currentParent->transform.localScale;
-
-		currentParent = currentParent->getParent();
-	}
-
-	return worldSca;
-}
-
-void Object::updateDirectionalVectors()
-{
-	transform.forward.x = sin(worldRotation().y);
-	transform.forward.y = -(sin(worldRotation().x) * cos(worldRotation().y)); 
-	transform.forward.z = -(cos(worldRotation().x) * cos(worldRotation().y)); 
-
-	transform.right.x = sin(worldRotation().y);
-	transform.right.y = -(sin(worldRotation().z) * cos(worldRotation().y)); 
-	transform.right.z = -(cos(worldRotation().z) * cos(worldRotation().y)); 
-
-	transform.up = cross(transform.forward, transform.right); 
+	return worldModelMatrix;
 }
 
 void Object::setParent(Object* parent)
 {
 	this->parent = parent;
 }
+
+mat4 Object::rotate(mat4 matrix, vec3 rotationVector)
+{
+	return glm::rotate(matrix, rotationVector.x, vec3(1, 0, 0)) * glm::rotate(matrix, rotationVector.y, vec3(0, 1, 0)) * glm::rotate(matrix, rotationVector.z, vec3(0, 0, 1));
+}
+
 
 int Object::addChild(Object* child) 
 {
@@ -261,4 +184,46 @@ int Object::addChild(Object* child)
 	child->setParent(this); 
 	children.push_back(child);
 	return 0;
+}
+
+vec3 Object::GetWorldPosition()
+{
+	return worldLocation;
+}
+
+quat Object::GetWorldRotation()
+{
+	return worldRotation;
+}
+
+vec3 Object::GetWorldScale()
+{
+	return worldScale;
+}
+
+vec3 Object::GetLocalPosition()
+{
+	return localPosition;
+}
+
+quat Object::GetLocalRotation()
+{
+	return localRotation;
+}
+
+vec3 Object::GetLocalScale()
+{
+	return localScale;
+}
+
+void Object::SetLocalPosition(vec3 location)
+{
+}
+
+void Object::SetLocalRotation(quat rotation)
+{
+}
+
+void Object::SetLocalScale(vec3 scale)
+{
 }

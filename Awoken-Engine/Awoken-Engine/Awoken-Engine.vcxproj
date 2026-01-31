@@ -112,13 +112,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\okniz\OneDrive\Documents\Resources\glfw-3.4\include;C:\Users\okniz\OneDrive\Documents\Resources\glad\include;C:\Users\okniz\OneDrive\Documents\Resources\assimp\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\okniz\Documents\glfw-3.4\include;C:\Users\okniz\Documents\glad\include;C:\Users\okniz\Documents\Assimp\include;C:\Users\okniz\Documents\glm\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>assimp-vc143-mt.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\okniz\OneDrive\Documents\Resources\glfw-3.4\lib;C:\Users\okniz\OneDrive\Documents\Resources\assimp\build\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\okniz\Documents\glfw-3.4\lib-vc2022;C:\Users\okniz\Documents\Assimp\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -141,7 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\okniz\OneDrive\Documents\Resources\glad\src\glad.c" />
+    <ClCompile Include="..\..\..\..\glad\src\glad.c" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="GameManager.cpp" />
