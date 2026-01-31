@@ -1,8 +1,10 @@
 #pragma once
+
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 #include "gtc/quaternion.hpp"
-#include <glm/gtx/euler_angles.hpp>
+#define GLM_ENABLE_EXPERIMENTAL
+#include <gtx/euler_angles.hpp>
 #include <vector>
 
 using namespace glm;
@@ -69,7 +71,7 @@ private:
 
 	vec3 localPosition;
 	//pitch, yaw, roll, rotations
-	vec3 localRotation;
+	quat localRotation;
 	vec3 localScale;
 
 	vec3 worldLocation;
@@ -80,5 +82,5 @@ private:
 	vec3 skew;
 	vec4 perspective;
 
-	mat4 rotate(mat4 matrix, vec3 rotationVector);
+	mat4 rotate(mat4 matrix, quat rotationVector);
 };

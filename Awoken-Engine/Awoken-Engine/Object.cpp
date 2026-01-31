@@ -162,7 +162,7 @@ void Object::setParent(Object* parent)
 	this->parent = parent;
 }
 
-mat4 Object::rotate(mat4 matrix, vec3 rotationVector)
+mat4 Object::rotate(mat4 matrix, quat rotationVector)
 {
 	return glm::rotate(matrix, rotationVector.x, vec3(1, 0, 0)) * glm::rotate(matrix, rotationVector.y, vec3(0, 1, 0)) * glm::rotate(matrix, rotationVector.z, vec3(0, 0, 1));
 }
@@ -218,12 +218,15 @@ vec3 Object::GetLocalScale()
 
 void Object::SetLocalPosition(vec3 location)
 {
+	localPosition = location;
 }
 
 void Object::SetLocalRotation(quat rotation)
 {
+	localRotation = rotation;
 }
 
 void Object::SetLocalScale(vec3 scale)
 {
+	localScale = scale;
 }
