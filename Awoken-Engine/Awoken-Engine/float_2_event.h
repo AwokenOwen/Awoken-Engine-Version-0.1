@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 #include <vector>
 
 using namespace std;
@@ -12,9 +13,9 @@ public:
 	//Calls all the functions stored in the _functions vector
 	void callEvent(float x, float y);
 	//add a function to the _functions vector
-	void add(void (*function)(float x, float y));
+	void add(function<void(float x, float y)> function);
 
 private:
 	//vector that stores all the function of this event
-	vector<void (*)(float x, float y)> _functions;
+	vector<function<void(float x, float y)>> _functions;
 };

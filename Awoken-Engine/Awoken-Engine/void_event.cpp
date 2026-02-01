@@ -10,12 +10,11 @@ void void_event::callEvent()
 {
 	for (int i = 0; i < _functions.size(); i++)
 	{
-		(*_functions[i])();
+		_functions[i]();
 	}
 }
 
-//add a function to the _functions vector
-void void_event::add(void(*function)())
+void void_event::add(function<void()> function)
 {
 	_functions.push_back(function);
 }

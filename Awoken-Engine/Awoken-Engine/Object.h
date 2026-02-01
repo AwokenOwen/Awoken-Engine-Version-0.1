@@ -46,6 +46,10 @@ public:
 	quat GetWorldRotation();
 	vec3 GetWorldScale();
 
+	vec3 GetForward();
+	vec3 GetRight();
+	vec3 GetUp();
+
 	mat4 worldModelMatrix();
 
 	vec3 GetLocalPosition();
@@ -79,6 +83,10 @@ private:
 	//pitch, yaw, roll, rotations
 	quat worldRotation;
 	vec3 worldScale;
+
+	vec3 forward;
+	vec3 right;
+	vec3 up;
 
 	vec3 skew;
 	vec4 perspective;

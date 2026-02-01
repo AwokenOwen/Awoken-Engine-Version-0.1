@@ -10,12 +10,11 @@ void float_2_event::callEvent(float x, float y)
 {
 	for (int i = 0; i < _functions.size(); i++)
 	{
-		(*_functions[0])(x, y);
+		_functions[0](x, y);
 	}
 }
 
-//add a function to the _functions vector
-void float_2_event::add(void(*function)(float x, float y))
+void float_2_event::add(function<void(float x, float y)> function) 
 {
 	_functions.push_back(function);
 }

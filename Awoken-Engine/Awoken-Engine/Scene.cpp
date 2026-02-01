@@ -68,7 +68,7 @@ void Scene::Awake()
 {
     if (camera == nullptr)
     {
-        camera = new Camera();
+        camera = new Camera(true);
         camera->SetLocalPosition(vec3(0.0f, 1.0f, -1.0f));
         std::cout << "Camera Created" << std::endl;
     }

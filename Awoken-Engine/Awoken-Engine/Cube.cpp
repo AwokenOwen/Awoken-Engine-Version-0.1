@@ -35,6 +35,4 @@ Cube::Cube() : Object()
 void Cube::Update()
 {
 	Object::Update();
-	degree += 0.001f;
-	SetLocalRotation(quat(vec3(0, degree, 0)));
 }

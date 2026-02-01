@@ -62,6 +62,7 @@ void Object::Start()
 //called every frame
 void Object::Update()
 {
+	worldModelMatrix();
 	if (firstFrame)
 	{
 		OnEnable();
@@ -168,6 +169,10 @@ mat4 Object::worldModelMatrix()
 		current = current->parent;
 	}
 	
+	forward = vec3(worldModelMatrix[0][2], worldModelMatrix[1][2], worldModelMatrix[2][2]);
+	up = vec3(worldModelMatrix[0][1], worldModelMatrix[1][1], worldModelMatrix[2][1]);
+	right = vec3(worldModelMatrix[0][0], worldModelMatrix[1][0], worldModelMatrix[2][0]);
+
 	decompose(worldModelMatrix, worldScale, worldRotation, worldPosition, skew, perspective);
 
 	return worldModelMatrix;
@@ -213,6 +218,21 @@ vec3 Object::GetWorldScale()
 {
 	worldModelMatrix();
 	return worldScale;
+}
+
+vec3 Object::GetForward()
+{
+	return forward;
+}
+
+vec3 Object::GetRight()
+{
+	return right;
+}
+
+vec3 Object::GetUp()
+{
+	return up;
 }
 
 vec3 Object::GetLocalPosition()
