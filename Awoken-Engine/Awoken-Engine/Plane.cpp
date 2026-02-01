@@ -6,10 +6,10 @@
 Plane::Plane()
 {
 	vector<Mesh::Vertex> squareVertices = {
-	Mesh::Vertex(vec3(.5,.5, 0), vec3(0, 0, -1), vec2(0,0)),
-	Mesh::Vertex(vec3(.5,-.5, 0), vec3(0, 0, -1), vec2(0,0)),
-	Mesh::Vertex(vec3(-.5,-.5, 0), vec3(0, 0, -1), vec2(0,0)),
-	Mesh::Vertex(vec3(-.5,.5, 0), vec3(0, 0, -1), vec2(0,0))
+		Mesh::Vertex(vec3(.5,.5, 0), vec3(0, 0, -1), vec2(1,1)),
+		Mesh::Vertex(vec3(.5,-.5, 0), vec3(0, 0, -1), vec2(1,0)),
+		Mesh::Vertex(vec3(-.5,-.5, 0), vec3(0, 0, -1), vec2(0,0)),
+		Mesh::Vertex(vec3(-.5,.5, 0), vec3(0, 0, -1), vec2(0,1))
 	};
 
 	vector<unsigned int> squareIndices = {

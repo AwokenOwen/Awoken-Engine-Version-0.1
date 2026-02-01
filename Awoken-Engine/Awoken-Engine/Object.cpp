@@ -127,6 +127,17 @@ void Object::addComponent(Component* component)
 	componentsSize++;
 }
 
+Component* Object::getComponent(string type)
+{
+	for (int i = 0; i < componentsSize; i++)
+	{
+		if (components[i]->type == type)
+		{
+			return components[i];
+		}
+	}
+}
+
 void Object::setActive(bool activeState)
 {
 	if (activeState != enabled)

@@ -1,23 +1,23 @@
 #include "GameManager.h"
-#include "Cube.h"
 #include "Plane.h"
+#include "Cube.h"
 #include "MeshRenderer.h"
+#include "ResourceManager.h"
 
 void loadObjects() {
-	Cube* parent = new Cube();
-	Cube* child = new Cube();
 
-	parent->addChild(child);
+	//Plane* a = new Plane();
+	Cube* a = new Cube();
+	a->SetLocalPosition(vec3(0, 0, -1.5f));
+	a->SetLocalScale(vec3(1.0f));
 
-	parent->SetLocalPosition(vec3(0, 0, 4));
+	MeshRenderer* meshRenderer = dynamic_cast<MeshRenderer*>(a->getComponent("MeshRenderer"));
 
-	child->SetLocalScale(vec3(0.5f));
-	child->SetLocalPosition(vec3(2, 0, 0));
+	vector<Mesh::Texture> texture = {
+		Mesh::Texture(Resource.loadPNG("assets/container.png"), "diffuse")
+	};
 
-	Plane* floor = new Plane();
-	floor->SetLocalRotation(quat(vec3(90, 0, 0)));
-	floor->SetLocalPosition(vec3(0, -1, 0));
-	floor->SetLocalScale(vec3(10.f));
+	meshRenderer->mesh->addTexture(texture);
 }
 
 int main() 

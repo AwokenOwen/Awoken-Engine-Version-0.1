@@ -1,5 +1,9 @@
 #pragma once
 
+#include <string>
+
+using namespace std;
+
 class Object;
 class Component
 {
@@ -7,6 +11,8 @@ public:
 	//default contructor
 	Component();
 	Component(Object* _parent);
+
+	string type;
 
 	//called once at the start of a scene
 	virtual void Awake();

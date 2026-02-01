@@ -23,8 +23,13 @@ public:
 	};
 
 	struct Texture {
-		unsigned int id;
+		unsigned int id = 0;
 		string type;
+
+		Texture(unsigned int id, string type) {
+			this->id = id;
+			this->type = type;
+		}
 	};
 
 	// mesh data
@@ -32,7 +37,11 @@ public:
 	vector<unsigned int> indices;
 	vector<Texture>      textures;
 
+	int textureCount = 0;
+
 	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
 	Mesh(vector<Vertex> vertices, vector<unsigned int> indices);
+
+	void addTexture(vector<Texture> textures);
 };
 

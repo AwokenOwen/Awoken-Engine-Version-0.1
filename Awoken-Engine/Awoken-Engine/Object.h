@@ -6,6 +6,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <gtx/euler_angles.hpp>
 #include <vector>
+#include <string>
 
 using namespace glm;
 using namespace std;
@@ -36,6 +37,7 @@ public:
 	Object* getParent();
 
 	void addComponent(Component* component);
+	Component* getComponent(string type);
 
 	void setActive(bool activeState);
 	bool getActiveState();

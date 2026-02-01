@@ -1,6 +1,7 @@
 #include "MeshRenderer.h"
 #include "WorldManager.h"
 #include "WindowManager.h"
+#include "ResourceManager.h"
 #include "Scene.h"
 #include "Camera.h"
 #include <glad/glad.h>
@@ -11,11 +12,13 @@
 MeshRenderer::MeshRenderer(Object* _parent) : Component(_parent)
 {
 	mesh = nullptr;
+    type = "MeshRenderer";
 }
 
 MeshRenderer::MeshRenderer(Object* _parent, Mesh* mesh) : Component(_parent)
 {
 	this->mesh = mesh;
+    type = "MeshRenderer";
 }
 
 void MeshRenderer::OnEnable()
@@ -68,6 +71,12 @@ void MeshRenderer::Draw()
     unsigned int shaderProgram = World.getActiveScene()->getShaderProgram();
 
     glUseProgram(shaderProgram);
+
+    for (int i = 0; i < mesh->textureCount; i++)
+    {
+        glActiveTexture(GL_TEXTURE0 + i);
+        glBindTexture(GL_TEXTURE_2D, mesh->textures[i].id);
+    }
 
     mat4 model = mat4(1.0f);
     mat4 projectionMatrix = Window.getProjectionMatrix();

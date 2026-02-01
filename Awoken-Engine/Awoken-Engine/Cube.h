@@ -9,5 +9,7 @@ public:
 	Cube();
 
 	void Update() override;
+
+	float degrees = 0;
 };
 

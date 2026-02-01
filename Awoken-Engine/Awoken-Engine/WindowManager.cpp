@@ -13,6 +13,7 @@ int WindowManager::Initialize()
 {
 	glfwInit();
 	createWindow();
+	glEnable(GL_DEPTH_TEST);
 
 	return 0;
 }
