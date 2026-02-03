@@ -24,6 +24,8 @@ public:
 	unsigned int loadPNG(const char* path);
 	unsigned int loadJPG(const char* path);
 
+	unsigned int defaultTexture;
+
 private:
 	ResourceManager();
 };
