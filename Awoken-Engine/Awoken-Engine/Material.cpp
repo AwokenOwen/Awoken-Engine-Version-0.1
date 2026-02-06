@@ -10,7 +10,7 @@
 Material::Material()
 {
     loadBaseTextures();
-    setShaderProgram("shaders/default.vert", "shaders/default.frag");
+    setShaderProgram("assets/defaultAssets/default.vert", "assets/defaultAssets/default.frag");
 }
 
 Material::Material(const char* vertexShaderPath, const char* fragmentShaderPath)

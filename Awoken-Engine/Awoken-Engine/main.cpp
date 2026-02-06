@@ -13,9 +13,6 @@ void loadObjects() {
 	Cube* a = new Cube();
 	a->SetLocalPosition(vec3(0, 0, -3.0f));
 	a->SetLocalScale(vec3(1.0f));
-
-	Material* aMaterial = dynamic_cast<MeshRenderer*>(a->getComponent("MeshRenderer"))->material;
-	//aMaterial->setShaderProgram("shaders/PhongVertex.vert", "shaders/PhongFragment.frag");
 }
 
 int main() 
