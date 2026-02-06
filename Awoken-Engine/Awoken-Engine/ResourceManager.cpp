@@ -8,6 +8,10 @@
 
 int ResourceManager::Initialize()
 {
+	defaultTexture_white = loadPNG("assets/whiteSquare.png");
+	defaultTexture_black = loadPNG("assets/blackSquare.png");
+	defaultTexture_normal = loadPNG("assets/defaultNormal.png");
+
 	return 0;
 }
 

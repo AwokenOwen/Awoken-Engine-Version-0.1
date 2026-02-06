@@ -6,6 +6,8 @@
 using namespace glm;
 using namespace std;
 
+class Material;
+class Object;
 class Mesh
 {
 public:
@@ -15,6 +17,13 @@ public:
 		vec3 normal;
 		vec2 texCoords;
 
+		Vertex() 
+		{
+			position = vec3(0.0f);
+			normal = vec3(0.0f);
+			texCoords = vec2(0.0f);
+		}
+
 		Vertex(vec3 position, vec3 normal, vec2 texCoords) {
 			this->position = position;
 			this->normal = normal;
@@ -22,26 +31,28 @@ public:
 		}
 	};
 
-	struct Texture {
-		unsigned int id = 0;
-		string type;
-
-		Texture(unsigned int id, string type) {
-			this->id = id;
-			this->type = type;
-		}
-	};
-
 	// mesh data
 	vector<Vertex>       vertices;
 	vector<unsigned int> indices;
-	vector<Texture>      textures;
 
-	int textureCount = 0;
-
-	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
 	Mesh(vector<Vertex> vertices, vector<unsigned int> indices);
 
-	void addTexture(vector<Texture> textures);
+	Object* getParent();
+	void setParent(Object* parent);
+
+	Material* material;
+
+	void Draw();
+
+private:
+	//  render data
+	unsigned int VAO, VBO, EBO;
+
+	void setupMesh();
+	void setUpShaderVariables(unsigned int shaderProgram);
+	void setUpDirectionalLight(unsigned int shaderProgram);
+	void setUpPointLights(unsigned int shaderProgram);
+
+	Object* parent;
 };
 

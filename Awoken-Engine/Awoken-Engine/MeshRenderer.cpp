@@ -3,7 +3,9 @@
 #include "WindowManager.h"
 #include "ResourceManager.h"
 #include "Scene.h"
+#include "Mesh.h"
 #include "Camera.h"
+#include "Material.h"
 #include <glad/glad.h>
 #include "glm.hpp"
 #include "gtc/type_ptr.hpp"
@@ -11,84 +13,96 @@
 
 MeshRenderer::MeshRenderer(Object* _parent) : Component(_parent)
 {
-	mesh = nullptr;
     type = "MeshRenderer";
+    material = new Material();
 }
 
-MeshRenderer::MeshRenderer(Object* _parent, Mesh* mesh) : Component(_parent)
+MeshRenderer::MeshRenderer(Object* _parent, const char* path) : Component(_parent)
 {
-	this->mesh = mesh;
     type = "MeshRenderer";
-}
-
-void MeshRenderer::OnEnable()
-{
-	if (mesh != nullptr)
-	{
-		setupMesh();
-	}
+    material = new Material();
+    loadModel(path);
 }
 
 void MeshRenderer::Update()
 {
-    if (mesh != nullptr)
+	for (unsigned int i = 0; i < meshes.size(); i++)
+		meshes[i]->Draw();
+}
+
+void MeshRenderer::loadModel(string path)
+{
+    Assimp::Importer import;
+    const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+
+    if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
     {
-        Draw();
+        cout << "ERROR::ASSIMP::" << import.GetErrorString() << endl;
+        return;
+    }
+    directory = path.substr(0, path.find_last_of('/'));
+
+    processNode(scene->mRootNode, scene);
+}
+
+void MeshRenderer::processNode(aiNode* node, const aiScene* scene)
+{
+    // process all the node's meshes (if any)
+    for (unsigned int i = 0; i < node->mNumMeshes; i++)
+    {
+        aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+        meshes.push_back(processMesh(mesh, scene));
+    }
+    // then do the same for each of its children
+    for (unsigned int i = 0; i < node->mNumChildren; i++)
+    {
+        processNode(node->mChildren[i], scene);
     }
 }
 
-void MeshRenderer::setupMesh()
+Mesh* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene)
 {
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
+    vector<Mesh::Vertex> vertices;
+    vector<unsigned int> indices;
 
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-    glBufferData(GL_ARRAY_BUFFER, mesh->vertices.size() * sizeof(Mesh::Vertex), &mesh->vertices[0], GL_STATIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh->indices.size() * sizeof(unsigned int),
-        &mesh->indices[0], GL_STATIC_DRAW);
-
-    // vertex positions
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Mesh::Vertex), (void*)0);
-    // vertex normals
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Mesh::Vertex), (void*)offsetof(Mesh::Vertex, normal));
-    // vertex texture coords
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Mesh::Vertex), (void*)offsetof(Mesh::Vertex, texCoords));
-
-    glBindVertexArray(0);
-}
-
-void MeshRenderer::Draw()
-{
-    // draw mesh
-    unsigned int shaderProgram = World.getActiveScene()->getShaderProgram();
-
-    glUseProgram(shaderProgram);
-
-    for (int i = 0; i < mesh->textureCount; i++)
+    for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
-        glActiveTexture(GL_TEXTURE0 + i);
-        glBindTexture(GL_TEXTURE_2D, mesh->textures[i].id);
+        Mesh::Vertex vertex;
+
+        glm::vec3 vector;
+        vector.x = mesh->mVertices[i].x;
+        vector.y = mesh->mVertices[i].y;
+        vector.z = mesh->mVertices[i].z;
+        vertex.position = vector;
+
+        vector.x = mesh->mNormals[i].x;
+        vector.y = mesh->mNormals[i].y;
+        vector.z = mesh->mNormals[i].z;
+        vertex.normal = vector;
+
+        if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
+        {
+            glm::vec2 vec;
+            vec.x = mesh->mTextureCoords[0][i].x;
+            vec.y = mesh->mTextureCoords[0][i].y;
+            vertex.texCoords = vec;
+        }
+        else
+            vertex.texCoords = glm::vec2(0.0f, 0.0f);
+
+        vertices.push_back(vertex);
+    }
+    // process indices
+    for (unsigned int i = 0; i < mesh->mNumFaces; i++)
+    {
+        aiFace face = mesh->mFaces[i];
+        for (unsigned int j = 0; j < face.mNumIndices; j++)
+            indices.push_back(face.mIndices[j]);
     }
 
-    mat4 model = mat4(1.0f);
-    mat4 projectionMatrix = Window.getProjectionMatrix();
-    mat4 viewMatrix = World.getActiveScene()->getCamera()->getViewMatrix();
+    Mesh* _mesh = new Mesh(vertices, indices);
+    _mesh->setParent(getParent());
+    _mesh->material = material;
 
-
-    model = projectionMatrix * viewMatrix * getParent()->worldModelMatrix();
-
-    int modelLoc = glGetUniformLocation(shaderProgram, "model");
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-
-    glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, mesh->indices.size(), GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+    return _mesh;
 }

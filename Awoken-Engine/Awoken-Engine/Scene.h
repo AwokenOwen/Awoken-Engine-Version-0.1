@@ -3,10 +3,12 @@
 #include <vector>
 #include "glm.hpp"
 
+using namespace glm;
 using namespace std;
 
 class Camera;
 class Object;
+class DirectionalLight;
 class Scene
 {
 public:
@@ -25,9 +27,11 @@ public:
 
 	void Instantiate(Object* obj);
 
-	unsigned int getShaderProgram();
-
 	Camera* getCamera();
+
+	vec3 ambientLight;
+
+	DirectionalLight* directionalLight;
 
 private:
 	vector<Object*> inScene;
@@ -35,8 +39,6 @@ private:
 	vector<Object*> toBeDeleted;
 
 	string name;
-
-	unsigned int shaderProgram;
 
 	Camera* camera = nullptr;
 };

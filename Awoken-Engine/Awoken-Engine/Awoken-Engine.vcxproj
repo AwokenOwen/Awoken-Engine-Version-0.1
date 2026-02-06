@@ -145,7 +145,9 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="Material.cpp" />
+    <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="void_event.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -154,7 +156,6 @@
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="float_2_event.cpp" />
     <ClCompile Include="Object.cpp" />
-    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="WindowManager.cpp" />
@@ -164,7 +165,9 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="PointLight.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="void_event.h" />
     <ClInclude Include="GameManager.h" />
@@ -173,7 +176,6 @@
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="float_2_event.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="Plane.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="WindowManager.h" />
