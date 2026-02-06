@@ -27,6 +27,7 @@ public:
 
 	unsigned int defaultTexture_white;
 	unsigned int defaultTexture_black;
+	unsigned int defaultTexture_halfWhite;
 	unsigned int defaultTexture_normal;
 
 private:

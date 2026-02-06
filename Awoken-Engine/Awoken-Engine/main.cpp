@@ -15,9 +15,6 @@ void loadObjects() {
 	a->SetLocalScale(vec3(1.0f));
 
 	Material* aMaterial = dynamic_cast<MeshRenderer*>(a->getComponent("MeshRenderer"))->material;
-
-	aMaterial->setAlbedoTexture("assets/cubeBaseColor.png");
-	aMaterial->setShaderProgram("shaders/PBRVertex.vert", "shaders/PBRFragment.frag");
 }
 
 int main() 

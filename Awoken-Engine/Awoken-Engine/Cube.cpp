@@ -2,7 +2,7 @@
 
 Cube::Cube() : Object()
 {
-	addComponent(new MeshRenderer(this, "assets/cube.obj"));
+	addComponent(new MeshRenderer(this, "assets/defaultAssets/cube.obj"));
 }
 
 void Cube::Update()

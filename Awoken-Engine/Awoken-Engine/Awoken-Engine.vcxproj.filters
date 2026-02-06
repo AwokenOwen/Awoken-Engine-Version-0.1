@@ -129,4 +129,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\PBRFragment.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\PBRVertex.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\PhongFragment.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shaders\PhongVertex.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
