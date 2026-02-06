@@ -92,6 +92,7 @@ void Mesh::Draw()
 
     glUseProgram(shaderProgram);
 
+    // Load Textures
     material->loadTextures();
 
     //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -106,8 +107,11 @@ void Mesh::Draw()
     int fullModelLoc = glGetUniformLocation(shaderProgram, "modelViewProjection");
     glUniformMatrix4fv(fullModelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-    int modelLoc = glGetUniformLocation(shaderProgram, "modelView");
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(getParent()->worldModelMatrix() * viewMatrix));
+    int modelViewLoc = glGetUniformLocation(shaderProgram, "modelView");
+    glUniformMatrix4fv(modelViewLoc, 1, GL_FALSE, glm::value_ptr(getParent()->worldModelMatrix() * viewMatrix));
+
+    int modelLoc = glGetUniformLocation(shaderProgram, "model");
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(getParent()->worldModelMatrix()));
 
     setUpShaderVariables(shaderProgram);
 

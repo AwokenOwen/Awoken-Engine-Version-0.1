@@ -26,22 +26,40 @@ unsigned int Material::getShaderProgram()
 
 void Material::loadTextures() 
 {
+    int albedoLoc = glGetUniformLocation(shaderProgram, "albedoMap");
+    glUniform1i(albedoLoc, 0);
+
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, albedoTexture);
+
+    int normalLoc = glGetUniformLocation(shaderProgram, "normalMap");
+    glUniform1i(normalLoc, 1);
 
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, normalTexture);
 
+    int metallicLoc = glGetUniformLocation(shaderProgram, "metallicMap");
+    glUniform1i(metallicLoc, 2);
+
     glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D, metallicTexture);
+
+    int roughnessLoc = glGetUniformLocation(shaderProgram, "roughnessMap");
+    glUniform1i(roughnessLoc, 3);
 
     glActiveTexture(GL_TEXTURE3);
     glBindTexture(GL_TEXTURE_2D, roughnessTexture);
 
+    int ambientOcclusionLoc = glGetUniformLocation(shaderProgram, "aoMap");
+    glUniform1i(ambientOcclusionLoc, 4);
+
     glActiveTexture(GL_TEXTURE4);
     glBindTexture(GL_TEXTURE_2D, ambientOcclusionTexture);
 
-    glActiveTexture(GL_TEXTURE6);
+    int emissionLoc = glGetUniformLocation(shaderProgram, "emissionMap");
+    glUniform1i(emissionLoc, 5);
+
+    glActiveTexture(GL_TEXTURE5);
     glBindTexture(GL_TEXTURE_2D, emissionTexture);
 
 
@@ -137,7 +155,7 @@ void Material::loadBaseTextures()
     normalTexture = Resource.defaultTexture_normal;
     roughnessTexture = Resource.defaultTexture_black;
     emissionTexture = Resource.defaultTexture_black;
-    ambientOcclusionTexture = Resource.defaultTexture_white;
+    ambientOcclusionTexture = Resource.defaultTexture_white;    
 }
 
 void Material::setShaderProgram(const char* vertexShaderPath, const char* fragmentShaderPath)
