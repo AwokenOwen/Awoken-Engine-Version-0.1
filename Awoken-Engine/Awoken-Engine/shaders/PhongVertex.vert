@@ -9,6 +9,7 @@ out vec2 TexCoord;
 
 uniform mat4 modelViewProjection;
 uniform mat4 modelView;
+uniform mat4 model;
 
 void main()
 {

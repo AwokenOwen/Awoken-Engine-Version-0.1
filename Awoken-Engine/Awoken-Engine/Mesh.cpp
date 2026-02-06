@@ -73,8 +73,8 @@ void Mesh::setUpDirectionalLight(unsigned int shaderProgram)
     int directionLoc = glGetUniformLocation(shaderProgram, "dirLightDir");
     glUniform3f(directionLoc, direction.x, direction.y, direction.z);
 
-    //int powerLoc = glGetUniformLocation(shaderProgram, "directionalLight.power");
-    //glUniform1f(powerLoc, power);
+    int powerLoc = glGetUniformLocation(shaderProgram, "dirLightPow");
+    glUniform1f(powerLoc, power);
 
     int colorLoc = glGetUniformLocation(shaderProgram, "dirLightColor");
     glUniform3f(colorLoc, color.x, color.y, color.z);

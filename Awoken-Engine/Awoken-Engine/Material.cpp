@@ -148,7 +148,7 @@ void Material::loadBaseTextures()
     albedoTexture = Resource.defaultTexture_white;
     metallicTexture = Resource.defaultTexture_black;
     normalTexture = Resource.defaultTexture_normal;
-    roughnessTexture = Resource.defaultTexture_halfWhite;
+    roughnessTexture = Resource.defaultTexture_white;
     emissionTexture = Resource.defaultTexture_black;
     ambientOcclusionTexture = Resource.defaultTexture_white;  
 }

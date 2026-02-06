@@ -15,6 +15,7 @@ uniform sampler2D emissionMap;
 // lights
 uniform vec3 dirLightDir;
 uniform vec3 dirLightColor;
+uniform float dirLightPow;
 
 uniform vec3 lightPositions[4];
 uniform vec3 lightColors[4];
@@ -56,7 +57,7 @@ void main() {
         Lo += CalcOtherLight(albedo, metallic, roughness, N, V, lightPositions[i], F0, lightColors[i]);
     }   
   
-    vec3 ambient = vec3(0.03) * albedo * ao;
+    vec3 ambient = vec3(0.2) * albedo * ao;
     vec3 color = Lo + ambient;
 
     color = color / (color + vec3(1.0));
@@ -116,7 +117,7 @@ vec3 getNormalFromMap(){
 
 vec3 CalcDirectionalLight(vec3 albedo, float metallic, float roughness, vec3 N, vec3 V, vec3 L, vec3 F0){
     vec3 H = normalize(V + L);
-    float attenuation = 1.0;
+    float attenuation = dirLightPow;
     vec3 radiance     = dirLightColor * attenuation;
     
     // cook-torrance brdf
