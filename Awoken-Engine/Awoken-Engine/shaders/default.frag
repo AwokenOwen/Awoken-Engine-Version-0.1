@@ -24,6 +24,7 @@ uniform vec3 camPos;
 
 const float PI = 3.14159265359;
   
+vec3 run(vec3 _albedo, float _metallic, float _roughness, float _ao, vec3 _emission);
 float DistributionGGX(vec3 N, vec3 H, float roughness);
 float GeometrySchlickGGX(float NdotV, float roughness);
 float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness);
@@ -33,11 +34,34 @@ vec3 CalcDirectionalLight(vec3 albedo, float metallic, float roughness, vec3 N, 
 vec3 CalcOtherLight(vec3 albedo, float metallic, float roughness, vec3 N, vec3 V, vec3 L, vec3 F0, vec3 lightColor);
 
 void main() {
+    // Default Values
+    // White
     vec3 albedo     = pow(texture2D(albedoMap, TexCoords).rgb, vec3(2.2));
+    // 1.0
     float metallic  = texture2D(metallicMap, TexCoords).r;
+    // 1.0
     float roughness = clamp(texture2D(roughnessMap, TexCoords).r, 0.1, 1.0);
+    // 1.0
     float ao        = texture2D(aoMap, TexCoords).r;
-    vec3 emission   = texture2D(emissionMap, TexCoords).rgb;
+    // 0.0 Coming Soon need to impliment
+    vec3 emission   = texture2D(emissionMap, TexCoords).rgb * 0.0;
+   
+   // Do calculations here to customize input values
+
+
+
+   // Running Normal Lighting Calculations
+   vec3 color = run(albedo, metallic, roughness, ao, emission);
+   // Setting Color
+    FragColor = vec4(color, 1.0);
+}
+
+vec3 run(vec3 _albedo, float _metallic, float _roughness, float _ao, vec3 _emission){
+    vec3 albedo     = _albedo;
+    float metallic  = _metallic;
+    float roughness = _roughness;
+    float ao        = _ao;
+    vec3 emission   = _emission;
 
     vec3 N = normalize(Normal);
     vec3 V = normalize(camPos - WorldPos);
@@ -61,10 +85,10 @@ void main() {
     vec3 color = Lo + ambient;
 
     color = color / (color + vec3(1.0));
-    color = pow(color, vec3(1.0/2.2));  
-   
-    FragColor = vec4(color, 1.0);
-} 
+    color = pow(color, vec3(1.0/2.2));
+
+    return color;
+}
 
 float DistributionGGX(vec3 N, vec3 H, float roughness){
     float a      = roughness*roughness;
@@ -114,7 +138,6 @@ vec3 getNormalFromMap(){
 
     return normalize(TBN * tangentNormal);
 }
-
 vec3 CalcDirectionalLight(vec3 albedo, float metallic, float roughness, vec3 N, vec3 V, vec3 L, vec3 F0){
     vec3 H = normalize(V + L);
     float attenuation = dirLightPow;
@@ -138,9 +161,7 @@ vec3 CalcDirectionalLight(vec3 albedo, float metallic, float roughness, vec3 N, 
     return (kD * albedo / PI + specular) * radiance * NdotL; 
     //return (numerator);
 }
-
-vec3 CalcOtherLight(vec3 albedo, float metallic, float roughness, vec3 N, vec3 V, vec3 lightPosition, vec3 F0, vec3 lightColor)
-{
+vec3 CalcOtherLight(vec3 albedo, float metallic, float roughness, vec3 N, vec3 V, vec3 lightPosition, vec3 F0, vec3 lightColor){
     // calculate per-light radiance
     vec3 L = normalize(lightPosition - WorldPos);
     vec3 H = normalize(V + L);

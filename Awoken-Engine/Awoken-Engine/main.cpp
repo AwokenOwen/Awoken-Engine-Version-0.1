@@ -15,7 +15,7 @@ void loadObjects() {
 	a->SetLocalScale(vec3(1.0f));
 
 	Material* aMaterial = dynamic_cast<MeshRenderer*>(a->getComponent("MeshRenderer"))->material;
-	aMaterial->setShaderProgram("shaders/PhongVertex.vert", "shaders/PhongFragment.frag");
+	//aMaterial->setShaderProgram("shaders/PhongVertex.vert", "shaders/PhongFragment.frag");
 }
 
 int main() 

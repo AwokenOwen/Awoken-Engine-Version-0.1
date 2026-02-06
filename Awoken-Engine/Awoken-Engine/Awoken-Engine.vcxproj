@@ -182,10 +182,8 @@
     <ClInclude Include="WorldManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\PBRFragment.frag" />
-    <None Include="shaders\PBRVertex.vert" />
-    <None Include="shaders\PhongFragment.frag" />
-    <None Include="shaders\PhongVertex.vert" />
+    <None Include="shaders\default.frag" />
+    <None Include="shaders\default.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

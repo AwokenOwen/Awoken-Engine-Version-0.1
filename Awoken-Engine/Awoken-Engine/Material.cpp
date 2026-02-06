@@ -10,7 +10,7 @@
 Material::Material()
 {
     loadBaseTextures();
-    setShaderProgram("shaders/PBRVertex.vert", "shaders/PBRFragment.frag");
+    setShaderProgram("shaders/default.vert", "shaders/default.frag");
 }
 
 Material::Material(const char* vertexShaderPath, const char* fragmentShaderPath)
@@ -146,10 +146,10 @@ void Material::setEmissionTexture(const char* path, int type)
 void Material::loadBaseTextures()
 {
     albedoTexture = Resource.defaultTexture_white;
-    metallicTexture = Resource.defaultTexture_black;
+    metallicTexture = Resource.defaultTexture_white;
     normalTexture = Resource.defaultTexture_normal;
     roughnessTexture = Resource.defaultTexture_white;
-    emissionTexture = Resource.defaultTexture_black;
+    emissionTexture = Resource.defaultTexture_white;
     ambientOcclusionTexture = Resource.defaultTexture_white;  
 }
 

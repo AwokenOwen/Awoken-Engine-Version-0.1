@@ -130,16 +130,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\PBRFragment.frag">
+    <None Include="shaders\default.frag">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="shaders\PBRVertex.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="shaders\PhongFragment.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="shaders\PhongVertex.vert">
+    <None Include="shaders\default.vert">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
