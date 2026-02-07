@@ -49,6 +49,7 @@ private:
 	unsigned int VAO, VBO, EBO;
 
 	void setupMesh();
+	void setUpShaderMatrices(unsigned int shaderProgram);
 	void setUpShaderVariables(unsigned int shaderProgram);
 	void setUpDirectionalLight(unsigned int shaderProgram);
 	void setUpPointLights(unsigned int shaderProgram);

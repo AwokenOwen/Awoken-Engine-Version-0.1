@@ -143,6 +143,54 @@ void Material::setEmissionTexture(const char* path, int type)
     }
 }
 
+void Material::setOpacityTexture(const char* path, int type)
+{
+    switch (type)
+    {
+    case 0:
+        opacityTexture = Resource.loadJPG(path);
+        break;
+    default:
+        opacityTexture = Resource.loadPNG(path);
+        break;
+    }
+}
+
+void Material::setAlbedoTexture(unsigned int id)
+{
+    albedoTexture = id;
+}
+
+void Material::setNormalTexture(unsigned int id)
+{
+    normalTexture = id;
+}
+
+void Material::setMetallicTexture(unsigned int id)
+{
+    metallicTexture = id;
+}
+
+void Material::setRoughnessTexture(unsigned int id)
+{
+    roughnessTexture = id;
+}
+
+void Material::setAmbientOcclusionTexture(unsigned int id)
+{
+    ambientOcclusionTexture = id;
+}
+
+void Material::setEmissionTexture(unsigned int id)
+{
+    emissionTexture = id;
+}
+
+void Material::setOpacityTexture(unsigned int id, int type)
+{
+    opacityTexture = id;
+}
+
 void Material::loadBaseTextures()
 {
     albedoTexture = Resource.defaultTexture_white;

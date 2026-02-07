@@ -9,6 +9,7 @@ using namespace std;
 class Camera;
 class Object;
 class DirectionalLight;
+class PointLight;
 class Scene
 {
 public:
@@ -29,9 +30,12 @@ public:
 
 	Camera* getCamera();
 
-	vec3 ambientLight;
+	vec3 ambientColor;
+	float ambientPower;
 
 	DirectionalLight* directionalLight;
+
+	vector<PointLight*> pointLights;
 
 private:
 	vector<Object*> inScene;

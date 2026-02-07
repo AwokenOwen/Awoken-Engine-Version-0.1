@@ -130,10 +130,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\default.frag">
+    <None Include="assets\defaultAssets\default.frag">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="shaders\default.vert">
+    <None Include="assets\defaultAssets\default.vert">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

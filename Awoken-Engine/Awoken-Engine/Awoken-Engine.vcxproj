@@ -182,8 +182,8 @@
     <ClInclude Include="WorldManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\default.frag" />
-    <None Include="shaders\default.vert" />
+    <None Include="assets\defaultAssets\default.frag" />
+    <None Include="assets\defaultAssets\default.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

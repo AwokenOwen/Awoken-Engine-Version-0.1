@@ -1,28 +1,19 @@
 #include "DirectionalLight.h"
 #include "WorldManager.h"
 
-DirectionalLight::DirectionalLight()
+DirectionalLight::DirectionalLight(vec3 color, float power) : Object()
 {
-	direction = vec3(-1.0f, -1.0f, -1.0f);
-	power = 1.0f;
-	color = vec3(1.0f, 1.0f, 1.0f);
-
-	World.getActiveScene()->directionalLight = this;
-}
-
-DirectionalLight::DirectionalLight(vec3 direction, float power, vec3 color)
-{
-	this->direction = direction;
 	this->power = power;
 	this->color = color;
 
+	setLookDirection(vec3(-1.0, -1.0, -1.0));
+
 	World.getActiveScene()->directionalLight = this;
 }
 
-vec3 DirectionalLight::getDirection()
+vec3 DirectionalLight::getLookDirection()
 {
-	direction = normalize(direction);
-	return direction;
+	return normalize(GetForward());
 }
 
 float DirectionalLight::getPower()
@@ -35,9 +26,9 @@ vec3 DirectionalLight::getColor()
 	return color;
 }
 
-void DirectionalLight::setDirection(vec3 direction)
+void DirectionalLight::setLookDirection(vec3 direction)
 {
-	this->direction = direction;
+	SetLocalRotation(quat(lookAt(normalize(direction), vec3(0.0), vec3(0.0, 1.0, 0.0))));
 }
 
 void DirectionalLight::setPower(float power)

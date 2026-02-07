@@ -1,21 +1,22 @@
 #pragma once
 #include "glm.hpp"
+#include "Object.h"
 
 using namespace glm;
 
-class PointLight
+class PointLight : public Object
 {
 public:
-    PointLight();
+    PointLight(vec3 color = vec3(1.0f, 1.0f, 1.0f), float power = 1.0f);
 
-    PointLight(vec3 position, float constant, float linear, float quadratic, vec3 color = vec3(1.0f, 1.0f, 1.0f));
+    vec3 getColor();
+    float getPower();
 
-    vec3 position;
+    void setColor(vec3 color);
+    void setPower(float power);
 
-    float constant;
-    float linear;
-    float quadratic;
-
+private:
     vec3 color;
+    float power;
 };
 

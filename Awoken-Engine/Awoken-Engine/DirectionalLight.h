@@ -1,25 +1,23 @@
 #pragma once
 #include "glm.hpp"
+#include "Object.h"
 
 using namespace glm;
 
-class DirectionalLight
+class DirectionalLight : public Object
 {
 public:
-	DirectionalLight();
+	DirectionalLight(vec3 color = vec3(1.0f, 1.0f, 1.0f), float power = 1.0f);
 
-	DirectionalLight(vec3 direction, float power = 1.0f, vec3 color = vec3(-1.0f, -1.0f, -1.0f));
-
-	vec3 getDirection();
+	vec3 getLookDirection();
 	float getPower();
 	vec3 getColor();
 
-	void setDirection(vec3 direction);
+	void setLookDirection(vec3 direction);
 	void setPower(float power);
 	void setColor(vec3 color);
 
 private:
-	vec3 direction;
 	float power;
 	vec3 color;
 };

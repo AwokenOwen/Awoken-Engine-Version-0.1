@@ -10,7 +10,8 @@
 
 Scene::Scene()
 {
-	ambientLight = vec3(0.2f);
+	ambientColor = vec3(1.0f);
+	ambientPower = 0.1f;
 	directionalLight = nullptr;
 }
 

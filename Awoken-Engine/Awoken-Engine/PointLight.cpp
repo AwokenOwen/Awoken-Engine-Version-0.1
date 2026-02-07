@@ -1,19 +1,30 @@
 #include "PointLight.h"
+#include "WorldManager.h"
 
-PointLight::PointLight()
+PointLight::PointLight(vec3 color, float power) : Object()
 {
-	position = vec3(0.0f);
-	constant = 1.0f;
-	linear = 1.0f;
-	quadratic = 1.0f;
-	color = vec3(1.0f, 1.0f, 1.0f);
+	this->color = color;
+	this->power = power;
+
+	World.getActiveScene()->pointLights.push_back(this);
 }
 
-PointLight::PointLight(vec3 position, float constant, float linear, float quadratic, vec3 color)
+vec3 PointLight::getColor() 
 {
-	this->position = position;
-	this->constant = constant;
-	this->linear = linear;
-	this->quadratic = quadratic;
+	return color;
+}
+
+float PointLight::getPower() 
+{
+	return power;
+}
+
+void PointLight::setColor(vec3 color)
+{
 	this->color = color;
+}
+
+void PointLight::setPower(float power)
+{
+	this->power = power;
 }

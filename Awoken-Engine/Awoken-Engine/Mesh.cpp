@@ -6,9 +6,9 @@
 #include "Camera.h"
 #include "Object.h"
 #include "DirectionalLight.h"
+#include "PointLight.h"
 #include <gtc/type_ptr.hpp>
 #include "MeshRenderer.h"
-
 
 Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices)
 {
@@ -46,57 +46,8 @@ void Mesh::setupMesh()
     glBindVertexArray(0);
 }
 
-void Mesh::setUpShaderVariables(unsigned int shaderProgram)
+void Mesh::setUpShaderMatrices(unsigned int shaderProgram)
 {
-    //// Ambient Light
-    //vec3 ambientLight = World.getActiveScene()->ambientLight;
-
-    //int ambientLoc = glGetUniformLocation(shaderProgram, "ambientStrength");
-    //glUniform3f(ambientLoc, ambientLight.x, ambientLight.y, ambientLight.z);
-
-    vec3 cameraPosition = World.getActiveScene()->getCamera()->GetWorldPosition();
-
-    int cameraLoc = glGetUniformLocation(shaderProgram, "camPos");
-    glUniform3f(cameraLoc, cameraPosition.x, cameraPosition.y, cameraPosition.z);
-
-    setUpDirectionalLight(shaderProgram);
-    setUpPointLights(shaderProgram);
-}
-
-void Mesh::setUpDirectionalLight(unsigned int shaderProgram)
-{
-    // Directional Light
-    vec3 direction = -World.getActiveScene()->directionalLight->getDirection();
-    float power = World.getActiveScene()->directionalLight->getPower();
-    vec3 color = World.getActiveScene()->directionalLight->getColor();
-
-    int directionLoc = glGetUniformLocation(shaderProgram, "dirLightDir");
-    glUniform3f(directionLoc, direction.x, direction.y, direction.z);
-
-    int powerLoc = glGetUniformLocation(shaderProgram, "dirLightPow");
-    glUniform1f(powerLoc, power);
-
-    int colorLoc = glGetUniformLocation(shaderProgram, "dirLightColor");
-    glUniform3f(colorLoc, color.x, color.y, color.z);
-}
-
-void Mesh::setUpPointLights(unsigned int shaderProgram)
-{
-    //just test for now 
-}
-
-void Mesh::Draw()
-{
-    // draw mesh
-    unsigned int shaderProgram = material->getShaderProgram();
-
-    glUseProgram(shaderProgram);
-
-    // Load Textures
-    material->loadTextures();
-
-    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
     // Vertex Matrix Stuff
     mat4 model = mat4(1.0f);
     mat4 projectionMatrix = Window.getProjectionMatrix();
@@ -112,8 +63,83 @@ void Mesh::Draw()
 
     int modelLoc = glGetUniformLocation(shaderProgram, "model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(getParent()->worldModelMatrix()));
+}
 
+void Mesh::setUpShaderVariables(unsigned int shaderProgram)
+{
+    // Ambient Light
+    vec3 ambientColor = World.getActiveScene()->ambientColor;
+
+    int ambientColorLoc = glGetUniformLocation(shaderProgram, "ambientColor");
+    glUniform3f(ambientColorLoc, ambientColor.x, ambientColor.y, ambientColor.z);
+
+    float ambientPower = World.getActiveScene()->ambientPower;
+
+    int ambienPowertLoc = glGetUniformLocation(shaderProgram, "ambientPower");
+    glUniform1f(ambienPowertLoc, ambientPower);
+
+    vec3 cameraPosition = World.getActiveScene()->getCamera()->GetWorldPosition();
+
+    int cameraLoc = glGetUniformLocation(shaderProgram, "camPos");
+    glUniform3f(cameraLoc, cameraPosition.x, cameraPosition.y, cameraPosition.z);
+}
+
+void Mesh::setUpDirectionalLight(unsigned int shaderProgram)
+{
+    // Directional Light
+    vec3 direction = -World.getActiveScene()->directionalLight->getLookDirection();
+    float power = World.getActiveScene()->directionalLight->getPower();
+    vec3 color = World.getActiveScene()->directionalLight->getColor();
+
+    int directionLoc = glGetUniformLocation(shaderProgram, "dirLightDir");
+    glUniform3f(directionLoc, direction.x, direction.y, direction.z);
+
+    int powerLoc = glGetUniformLocation(shaderProgram, "dirLightPow");
+    glUniform1f(powerLoc, power);
+
+    int colorLoc = glGetUniformLocation(shaderProgram, "dirLightColor");
+    glUniform3f(colorLoc, color.x, color.y, color.z);
+}
+
+void Mesh::setUpPointLights(unsigned int shaderProgram)
+{
+    for (int i = 0; i < World.getActiveScene()->pointLights.size(); i++)
+    {
+        // Point Lights
+        vec3 position = -World.getActiveScene()->pointLights[i]->GetWorldPosition();
+        float power = World.getActiveScene()->pointLights[i]->getPower();
+        vec3 color = World.getActiveScene()->pointLights[i]->getColor();
+
+        string command = string("lightPositions[") + to_string(i).c_str() + "]";
+        int positionLoc = glGetUniformLocation(shaderProgram, command.c_str());
+        glUniform3f(positionLoc, position.x, position.y, position.z);
+
+        command = string("lightPowers[") + to_string(i).c_str() + "]";
+        int powerLoc = glGetUniformLocation(shaderProgram, command.c_str());
+        glUniform1f(powerLoc, power);
+
+        command = string("lightColors[") + to_string(i).c_str() + "]";
+        int colorLoc = glGetUniformLocation(shaderProgram, command.c_str());
+        glUniform3f(colorLoc, color.x, color.y, color.z);
+    }
+}
+
+void Mesh::Draw()
+{
+    // draw mesh
+    unsigned int shaderProgram = material->getShaderProgram();
+
+    glUseProgram(shaderProgram);
+
+    // Load Textures
+    material->loadTextures();
+
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    setUpShaderMatrices(shaderProgram);
     setUpShaderVariables(shaderProgram);
+    setUpDirectionalLight(shaderProgram);
+    setUpPointLights(shaderProgram);
 
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
