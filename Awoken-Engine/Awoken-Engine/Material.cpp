@@ -9,13 +9,11 @@
 
 Material::Material()
 {
-    loadBaseTextures();
     setShaderProgram("assets/defaultAssets/default.vert", "assets/defaultAssets/default.frag");
 }
 
 Material::Material(const char* vertexShaderPath, const char* fragmentShaderPath)
 {
-    loadBaseTextures();
     setShaderProgram(vertexShaderPath, fragmentShaderPath);
 }
 
@@ -189,16 +187,6 @@ void Material::setEmissionTexture(unsigned int id)
 void Material::setOpacityTexture(unsigned int id, int type)
 {
     opacityTexture = id;
-}
-
-void Material::loadBaseTextures()
-{
-    albedoTexture = Resource.defaultTexture_white;
-    metallicTexture = Resource.defaultTexture_white;
-    normalTexture = Resource.defaultTexture_normal;
-    roughnessTexture = Resource.defaultTexture_white;
-    emissionTexture = Resource.defaultTexture_white;
-    ambientOcclusionTexture = Resource.defaultTexture_white;  
 }
 
 void Material::setShaderProgram(const char* vertexShaderPath, const char* fragmentShaderPath)

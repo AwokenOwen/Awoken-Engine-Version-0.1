@@ -57,7 +57,5 @@ private:
 
 	// Shader Program
 	unsigned int shaderProgram;
-
-	void loadBaseTextures();
 };
 
