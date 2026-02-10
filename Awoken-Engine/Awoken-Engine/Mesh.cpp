@@ -78,7 +78,7 @@ void Mesh::setUpShaderVariables(unsigned int shaderProgram)
     int ambienPowertLoc = glGetUniformLocation(shaderProgram, "ambientPower");
     glUniform1f(ambienPowertLoc, ambientPower);
 
-    vec3 cameraPosition = World.getActiveScene()->getCamera()->GetWorldPosition();
+    vec3 cameraPosition = -World.getActiveScene()->getCamera()->GetWorldPosition();
 
     int cameraLoc = glGetUniformLocation(shaderProgram, "camPos");
     glUniform3f(cameraLoc, cameraPosition.x, cameraPosition.y, cameraPosition.z);
@@ -106,7 +106,7 @@ void Mesh::setUpPointLights(unsigned int shaderProgram)
     for (int i = 0; i < World.getActiveScene()->pointLights.size(); i++)
     {
         // Point Lights
-        vec3 position = -World.getActiveScene()->pointLights[i]->GetWorldPosition();
+        vec3 position = World.getActiveScene()->pointLights[i]->GetWorldPosition();
         float power = World.getActiveScene()->pointLights[i]->getPower();
         vec3 color = World.getActiveScene()->pointLights[i]->getColor();
 

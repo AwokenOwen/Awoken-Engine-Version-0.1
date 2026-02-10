@@ -136,6 +136,7 @@ Component* Object::getComponent(string type)
 			return components[i];
 		}
 	}
+	return nullptr;
 }
 
 void Object::setActive(bool activeState)
