@@ -276,3 +276,18 @@ void Object::SetLocalScale(vec3 scale)
 {
 	localScale = scale;
 }
+
+void Object::Translate(vec3 translation)
+{
+	SetLocalPosition(GetLocalPosition() + translation);
+}
+
+void Object::Rotate(vec3 eularRotation)
+{
+	SetLocalRotation(GetLocalRotation() + quat(eularRotation));
+}
+
+void Object::Scale(vec3 scaleFactors)
+{
+	SetLocalScale(GetLocalScale() * scaleFactors);
+}

@@ -64,6 +64,10 @@ public:
 	void SetLocalRotation(quat rotation);
 	void SetLocalScale(vec3 scale);
 
+	void Translate(vec3 translation);
+	void Rotate(vec3 eularRotation);
+	void Scale(vec3 scaleFactors);
+
 private:
 	Object* parent = nullptr;
 
