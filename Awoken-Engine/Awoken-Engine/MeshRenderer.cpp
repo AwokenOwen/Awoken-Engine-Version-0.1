@@ -62,6 +62,12 @@ void MeshRenderer::processNode(aiNode* node, const aiScene* scene)
 
 Mesh* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene)
 {
+    Mesh* mapMesh{};
+    if (Resource.getMeshFromMap(*mesh, mapMesh) == 0)
+    {
+        return mapMesh;
+    }
+
     vector<Mesh::Vertex> vertices;
     vector<unsigned int> indices;
 

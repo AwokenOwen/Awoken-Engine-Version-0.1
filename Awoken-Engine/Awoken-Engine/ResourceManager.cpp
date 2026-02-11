@@ -2,6 +2,7 @@
 #include "stb_image.h"
 
 #include "ResourceManager.h"
+#include "Mesh.h"
 #include <iostream>
 #include "Scene.h"
 #include "glad/glad.h"
@@ -29,6 +30,13 @@ int ResourceManager::loadScene(string name)
 
 unsigned int ResourceManager::loadPNG(const char* path)
 {
+	// If Texture already loaded grab loaded texture
+	auto mapTexture = textureMap.find(string(path));
+	if (mapTexture != textureMap.end())
+	{
+		return mapTexture->second;
+	}
+
 	//Loading Texture
 	unsigned int texture;
 	glGenTextures(1, &texture);
@@ -70,6 +78,8 @@ unsigned int ResourceManager::loadPNG(const char* path)
 		std::cout << "Failed to load texture" << std::endl;
 	}
 	stbi_image_free(data);
+
+	textureMap.insert({string(path), texture});
 
 	return texture;
 }
@@ -119,6 +129,23 @@ unsigned int ResourceManager::loadJPG(const char* path)
 	stbi_image_free(data);
 
 	return texture;
+}
+
+int ResourceManager::getMeshFromMap(aiMesh aiMesh, Mesh* mesh)
+{
+	// If Texture already loaded grab loaded texture
+	auto mapMesh = meshMap.find(aiMesh);
+	if (mapMesh != meshMap.end())
+	{
+		*mesh = mapMesh->second;
+		return 0;
+	}
+	return -1;
+}
+
+void ResourceManager::addMeshToMap(aiMesh aiMesh, Mesh mesh)
+{
+	meshMap.insert({aiMesh, mesh});
 }
 
 ResourceManager::ResourceManager()

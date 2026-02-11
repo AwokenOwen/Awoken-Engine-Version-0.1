@@ -1,6 +1,8 @@
 #pragma once
 #include <fstream>
 #include <string>
+#include <map>
+#include <assimp/mesh.h>
 
 using namespace std;
 
@@ -25,6 +27,12 @@ public:
 	unsigned int loadPNG(const char* path);
 	unsigned int loadJPG(const char* path);
 
+	int getMeshFromMap(aiMesh aiMesh, Mesh* mesh);
+	void addMeshToMap(aiMesh aiMesh, Mesh mesh);
+
 private:
 	ResourceManager();
+
+	map<aiMesh, Mesh> meshMap;
+	map<string, unsigned int> textureMap;
 };

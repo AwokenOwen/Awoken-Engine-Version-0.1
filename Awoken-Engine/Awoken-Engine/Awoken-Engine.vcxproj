@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -147,6 +147,7 @@
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="PointLight.cpp" />
+    <ClCompile Include="Source.cpp" />
     <ClCompile Include="void_event.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
