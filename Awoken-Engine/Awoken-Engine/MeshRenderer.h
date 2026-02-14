@@ -28,7 +28,7 @@ private:
 	string directory;
 
 	void loadModel(string path);
-	void processNode(aiNode* node, const aiScene* scene);
+	void processNode(aiNode* node, const aiScene* scene, string path);
 	Mesh* processMesh(aiMesh* mesh, const aiScene* scene);
 };
 

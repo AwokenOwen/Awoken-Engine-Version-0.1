@@ -148,6 +148,7 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="ThreadManager.cpp" />
     <ClCompile Include="void_event.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="stb_image.h" />
+    <ClInclude Include="ThreadManager.h" />
     <ClInclude Include="void_event.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="InputManager.h" />

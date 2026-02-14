@@ -26,12 +26,22 @@ MeshRenderer::MeshRenderer(Object* _parent, const char* path) : Component(_paren
 
 void MeshRenderer::Update()
 {
-	for (unsigned int i = 0; i < meshes.size(); i++)
-		meshes[i]->Draw();
+    for (unsigned int i = 0; i < meshes.size(); i++)
+    {
+        meshes[i]->setParent(getParent());
+        meshes[i]->Draw();
+    }
 }
 
 void MeshRenderer::loadModel(string path)
 {
+    vector<Mesh*> results = Resource.getMeshFromMap(path);
+    if (!results.empty())
+    {
+        meshes = results;
+        return;
+    }
+
     Assimp::Importer import;
     const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
 
@@ -42,10 +52,10 @@ void MeshRenderer::loadModel(string path)
     }
     directory = path.substr(0, path.find_last_of('/'));
 
-    processNode(scene->mRootNode, scene);
+    processNode(scene->mRootNode, scene, path);
 }
 
-void MeshRenderer::processNode(aiNode* node, const aiScene* scene)
+void MeshRenderer::processNode(aiNode* node, const aiScene* scene, string path)
 {
     // process all the node's meshes (if any)
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
@@ -56,18 +66,14 @@ void MeshRenderer::processNode(aiNode* node, const aiScene* scene)
     // then do the same for each of its children
     for (unsigned int i = 0; i < node->mNumChildren; i++)
     {
-        processNode(node->mChildren[i], scene);
+        processNode(node->mChildren[i], scene, path);
     }
+
+    Resource.addMeshToMap(path, meshes);
 }
 
 Mesh* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene)
 {
-    Mesh* mapMesh{};
-    if (Resource.getMeshFromMap(*mesh, mapMesh) == 0)
-    {
-        return mapMesh;
-    }
-
     vector<Mesh::Vertex> vertices;
     vector<unsigned int> indices;
 
@@ -108,6 +114,8 @@ Mesh* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene)
 
     Mesh* _mesh = new Mesh(vertices, indices);
     _mesh->setParent(getParent());
+    
+    //this will change eventually
     _mesh->material = material;
 
     return _mesh;

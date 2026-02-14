@@ -26,15 +26,6 @@ public:
 	void setEmissionTexture(const char* path, int type = 0);
 	void setOpacityTexture(const char* path, int type = 0);
 
-	// Load already loaded texture
-	void setAlbedoTexture(unsigned int id);
-	void setNormalTexture(unsigned int id);
-	void setMetallicTexture(unsigned int id);
-	void setRoughnessTexture(unsigned int id);
-	void setAmbientOcclusionTexture(unsigned int id);
-	void setEmissionTexture(unsigned int id);
-	void setOpacityTexture(unsigned int id, int type = 0);
-
 	vector<unsigned int> extraTextures;
 
 private:

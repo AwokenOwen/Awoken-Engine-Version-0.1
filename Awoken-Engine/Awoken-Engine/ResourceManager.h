@@ -3,6 +3,7 @@
 #include <string>
 #include <map>
 #include <assimp/mesh.h>
+#include <vector>
 
 using namespace std;
 
@@ -27,12 +28,12 @@ public:
 	unsigned int loadPNG(const char* path);
 	unsigned int loadJPG(const char* path);
 
-	int getMeshFromMap(aiMesh aiMesh, Mesh* mesh);
-	void addMeshToMap(aiMesh aiMesh, Mesh mesh);
+	vector<Mesh*> getMeshFromMap(string path);
+	void addMeshToMap(string path, vector<Mesh*> mesh);
 
 private:
 	ResourceManager();
 
-	map<aiMesh, Mesh> meshMap;
+	map<string, vector<Mesh*>> meshMap;
 	map<string, unsigned int> textureMap;
 };

@@ -154,41 +154,6 @@ void Material::setOpacityTexture(const char* path, int type)
     }
 }
 
-void Material::setAlbedoTexture(unsigned int id)
-{
-    albedoTexture = id;
-}
-
-void Material::setNormalTexture(unsigned int id)
-{
-    normalTexture = id;
-}
-
-void Material::setMetallicTexture(unsigned int id)
-{
-    metallicTexture = id;
-}
-
-void Material::setRoughnessTexture(unsigned int id)
-{
-    roughnessTexture = id;
-}
-
-void Material::setAmbientOcclusionTexture(unsigned int id)
-{
-    ambientOcclusionTexture = id;
-}
-
-void Material::setEmissionTexture(unsigned int id)
-{
-    emissionTexture = id;
-}
-
-void Material::setOpacityTexture(unsigned int id, int type)
-{
-    opacityTexture = id;
-}
-
 void Material::setShaderProgram(const char* vertexShaderPath, const char* fragmentShaderPath)
 {
     // 1. retrieve the vertex/fragment source code from filePath

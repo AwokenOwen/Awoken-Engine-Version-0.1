@@ -67,10 +67,12 @@ unsigned int ResourceManager::loadPNG(const char* path)
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
 				GL_UNSIGNED_BYTE, data);
 			glGenerateMipmap(GL_TEXTURE_2D);
+			break;
 		default:
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA,
 				GL_UNSIGNED_BYTE, data);
 			glGenerateMipmap(GL_TEXTURE_2D);
+			break;
 		}
 	}
 	else
@@ -86,6 +88,13 @@ unsigned int ResourceManager::loadPNG(const char* path)
 
 unsigned int ResourceManager::loadJPG(const char* path)
 {
+	// If Texture already loaded grab loaded texture
+	auto mapTexture = textureMap.find(string(path));
+	if (mapTexture != textureMap.end())
+	{
+		return mapTexture->second;
+	}
+
 	//Loading Texture
 	unsigned int texture;
 	glGenTextures(1, &texture);
@@ -116,10 +125,12 @@ unsigned int ResourceManager::loadJPG(const char* path)
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
 				GL_UNSIGNED_BYTE, data);
 			glGenerateMipmap(GL_TEXTURE_2D);
+			break;
 		default:
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA,
 				GL_UNSIGNED_BYTE, data);
 			glGenerateMipmap(GL_TEXTURE_2D);
+			break;
 		}
 	}
 	else
@@ -128,24 +139,25 @@ unsigned int ResourceManager::loadJPG(const char* path)
 	}
 	stbi_image_free(data);
 
+	textureMap.insert({ string(path), texture });
+
 	return texture;
 }
 
-int ResourceManager::getMeshFromMap(aiMesh aiMesh, Mesh* mesh)
+vector<Mesh*> ResourceManager::getMeshFromMap(string path)
 {
 	// If Texture already loaded grab loaded texture
-	auto mapMesh = meshMap.find(aiMesh);
+	auto mapMesh = meshMap.find(string(path));
 	if (mapMesh != meshMap.end())
 	{
-		*mesh = mapMesh->second;
-		return 0;
+		return mapMesh->second;
 	}
-	return -1;
+	return {};
 }
 
-void ResourceManager::addMeshToMap(aiMesh aiMesh, Mesh mesh)
+void ResourceManager::addMeshToMap(string path, vector<Mesh*> mesh)
 {
-	meshMap.insert({aiMesh, mesh});
+	meshMap.insert({ path, mesh });
 }
 
 ResourceManager::ResourceManager()

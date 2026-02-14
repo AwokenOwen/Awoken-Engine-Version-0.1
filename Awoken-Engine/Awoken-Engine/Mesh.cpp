@@ -78,7 +78,7 @@ void Mesh::setUpShaderVariables(unsigned int shaderProgram)
     int ambienPowertLoc = glGetUniformLocation(shaderProgram, "ambientPower");
     glUniform1f(ambienPowertLoc, ambientPower);
 
-    vec3 cameraPosition = -World.getActiveScene()->getCamera()->GetWorldPosition();
+    vec3 cameraPosition = World.getActiveScene()->getCamera()->GetWorldPosition();
 
     int cameraLoc = glGetUniformLocation(shaderProgram, "camPos");
     glUniform3f(cameraLoc, cameraPosition.x, cameraPosition.y, cameraPosition.z);

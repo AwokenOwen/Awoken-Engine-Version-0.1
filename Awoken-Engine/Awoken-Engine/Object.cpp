@@ -121,10 +121,11 @@ Object* Object::getParent()
 	return parent;
 }
 
-void Object::addComponent(Component* component)
+Component* Object::addComponent(Component* component)
 {
 	components.push_back(component);
 	componentsSize++;
+	return component;
 }
 
 Component* Object::getComponent(string type)

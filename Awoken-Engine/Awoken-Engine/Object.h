@@ -36,7 +36,7 @@ public:
 	//get the parent object if there is one
 	Object* getParent();
 
-	void addComponent(Component* component);
+	Component* addComponent(Component* component);
 	Component* getComponent(string type);
 
 	void setActive(bool activeState);
