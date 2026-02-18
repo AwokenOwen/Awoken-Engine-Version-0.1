@@ -7,11 +7,12 @@
 #include "Camera.h"
 #include "Object.h"
 #include "DirectionalLight.h"
+#include "MeshRenderer.h"
 
 Scene::Scene()
 {
 	ambientColor = vec3(1.0f);
-	ambientPower = 0.1f;
+	ambientPower = 0.2f;
 	directionalLight = nullptr;
 }
 
@@ -44,6 +45,7 @@ void Scene::Start()
 
 void Scene::Update()
 {
+	DrawSkybox();
 	for (int i = 0; i < inScene.size(); i++)
 	{
 		if (inScene[i]->getActiveState())
@@ -89,4 +91,28 @@ void Scene::Instantiate(Object* obj)
 Camera* Scene::getCamera()
 {
     return camera;
+}
+
+void Scene::setSkybox(vector<const char*> paths)
+{
+	MeshRenderer* m;
+	if (skybox == nullptr)
+	{
+		skybox = new Object;
+		m = skybox->addComponent<MeshRenderer>();
+	}
+	else
+	{
+		m = skybox->getComponent<MeshRenderer>();
+	}
+	m->loadCubeMap(paths);
+	skybox->setActive(false);
+}
+
+void Scene::DrawSkybox()
+{
+	if (skybox != nullptr)
+	{
+		skybox->Update();
+	}
 }

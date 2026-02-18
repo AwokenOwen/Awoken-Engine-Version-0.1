@@ -15,6 +15,8 @@ Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices)
     this->vertices = vertices;
     this->indices = indices;
 
+    once = true;
+
     setupMesh();
 }
 
@@ -49,20 +51,23 @@ void Mesh::setupMesh()
 void Mesh::setUpShaderMatrices(unsigned int shaderProgram)
 {
     // Vertex Matrix Stuff
-    mat4 model = mat4(1.0f);
+    mat4 modelMatrix = getParent()->worldModelMatrix();
     mat4 projectionMatrix = Window.getProjectionMatrix();
     mat4 viewMatrix = World.getActiveScene()->getCamera()->getViewMatrix();
 
-    model = projectionMatrix * viewMatrix * getParent()->worldModelMatrix();
-
-    int fullModelLoc = glGetUniformLocation(shaderProgram, "modelViewProjection");
-    glUniformMatrix4fv(fullModelLoc, 1, GL_FALSE, glm::value_ptr(model));
-
-    int modelViewLoc = glGetUniformLocation(shaderProgram, "modelView");
-    glUniformMatrix4fv(modelViewLoc, 1, GL_FALSE, glm::value_ptr(getParent()->worldModelMatrix() * viewMatrix));
+    if (material->type == MaterialType::CUBEMAP)
+    {
+        viewMatrix = glm::mat4(glm::mat3(viewMatrix));
+    }
 
     int modelLoc = glGetUniformLocation(shaderProgram, "model");
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(getParent()->worldModelMatrix()));
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+
+    int viewLoc = glGetUniformLocation(shaderProgram, "view");
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+
+    int projectionLoc = glGetUniformLocation(shaderProgram, "projection");
+    glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 }
 
 void Mesh::setUpShaderVariables(unsigned int shaderProgram)
@@ -87,18 +92,21 @@ void Mesh::setUpShaderVariables(unsigned int shaderProgram)
 void Mesh::setUpDirectionalLight(unsigned int shaderProgram)
 {
     // Directional Light
-    vec3 direction = -World.getActiveScene()->directionalLight->getLookDirection();
-    float power = World.getActiveScene()->directionalLight->getPower();
-    vec3 color = World.getActiveScene()->directionalLight->getColor();
+    if (World.getActiveScene()->directionalLight != nullptr)
+    {
+        vec3 direction = -World.getActiveScene()->directionalLight->getLookDirection();
+        float power = World.getActiveScene()->directionalLight->getPower();
+        vec3 color = World.getActiveScene()->directionalLight->getColor();
 
-    int directionLoc = glGetUniformLocation(shaderProgram, "dirLightDir");
-    glUniform3f(directionLoc, direction.x, direction.y, direction.z);
+        int directionLoc = glGetUniformLocation(shaderProgram, "dirLightDir");
+        glUniform3f(directionLoc, direction.x, direction.y, direction.z);
 
-    int powerLoc = glGetUniformLocation(shaderProgram, "dirLightPow");
-    glUniform1f(powerLoc, power);
+        int powerLoc = glGetUniformLocation(shaderProgram, "dirLightPow");
+        glUniform1f(powerLoc, power);
 
-    int colorLoc = glGetUniformLocation(shaderProgram, "dirLightColor");
-    glUniform3f(colorLoc, color.x, color.y, color.z);
+        int colorLoc = glGetUniformLocation(shaderProgram, "dirLightColor");
+        glUniform3f(colorLoc, color.x, color.y, color.z);
+    }
 }
 
 void Mesh::setUpPointLights(unsigned int shaderProgram)
@@ -145,6 +153,7 @@ void Mesh::Draw()
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
+
 
 Object* Mesh::getParent() 
 {

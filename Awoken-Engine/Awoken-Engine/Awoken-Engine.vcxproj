@@ -144,6 +144,7 @@
     <ClCompile Include="..\..\..\..\glad\src\glad.c" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="PointLight.cpp" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="CubeMap.h" />
     <ClInclude Include="DirectionalLight.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="PointLight.h" />
@@ -182,6 +184,8 @@
   <ItemGroup>
     <None Include="assets\defaultAssets\default.frag" />
     <None Include="assets\defaultAssets\default.vert" />
+    <None Include="assets\defaultAssets\cubeMap.frag" />
+    <None Include="assets\defaultAssets\cubeMap.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,6 +5,12 @@
 using namespace glm;
 using namespace std;
 
+enum MaterialType
+{
+	DEFAULT_LIT,
+	CUBEMAP
+};
+
 class Material
 {
 public:
@@ -26,9 +32,15 @@ public:
 	void setEmissionTexture(const char* path, int type = 0);
 	void setOpacityTexture(const char* path, int type = 0);
 
+	void setCubeMapTexture(vector<const char*> paths);
+
 	vector<unsigned int> extraTextures;
 
+	MaterialType type;
+
 private:
+
+	void loadDefaultLitTextures();
 
 	// Material Attributes
 	// Base Color
@@ -45,6 +57,8 @@ private:
 	unsigned int emissionTexture;
 	// Opacity Texture
 	unsigned int opacityTexture;
+
+	unsigned int cubeMapTexture;
 
 	// Shader Program
 	unsigned int shaderProgram;

@@ -11,6 +11,7 @@ uniform sampler2D metallicMap;
 uniform sampler2D roughnessMap;
 uniform sampler2D aoMap;
 uniform sampler2D emissionMap;
+uniform sampler2D opacityMap;
 
 // Extra textures - add uniform sampler2D for each extra texture added
 
@@ -51,15 +52,20 @@ void main() {
     float ao        = texture2D(aoMap, TexCoords).r;
     // 0.0 Coming Soon need to impliment
     vec3 emission   = texture2D(emissionMap, TexCoords).rgb * 0.0;
+    //1.0
+    float opacity   = texture2D(opacityMap, TexCoords / 1.0).r;
    
    // Do calculations here to customize input values
 
-   
+    roughness = 0.5;
+    metallic = 0.5;
+    opacity = 1.0;
 
    // Running Normal Lighting Calculations
    vec3 color = CreateMaterial(albedo, metallic, roughness, ao, emission);
+
    // Setting Color
-    FragColor = vec4(color, 1.0);
+   FragColor = vec4(color, 1.0);
 }
 
 vec3 CreateMaterial(vec3 _albedo, float _metallic, float _roughness, float _ao, vec3 _emission){

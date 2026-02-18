@@ -10,11 +10,13 @@
 Material::Material()
 {
     setShaderProgram("assets/defaultAssets/default.vert", "assets/defaultAssets/default.frag");
+    type = MaterialType::DEFAULT_LIT;
 }
 
 Material::Material(const char* vertexShaderPath, const char* fragmentShaderPath)
 {
     setShaderProgram(vertexShaderPath, fragmentShaderPath);
+    type = MaterialType::DEFAULT_LIT;
 }
 
 unsigned int Material::getShaderProgram()
@@ -24,43 +26,23 @@ unsigned int Material::getShaderProgram()
 
 void Material::loadTextures() 
 {
-    int albedoLoc = glGetUniformLocation(shaderProgram, "albedoMap");
-    glUniform1i(albedoLoc, 0);
-    int normalLoc = glGetUniformLocation(shaderProgram, "normalMap");
-    glUniform1i(normalLoc, 1);
-    int metallicLoc = glGetUniformLocation(shaderProgram, "metallicMap");
-    glUniform1i(metallicLoc, 2);
-    int roughnessLoc = glGetUniformLocation(shaderProgram, "roughnessMap");
-    glUniform1i(roughnessLoc, 3);
-    int ambientOcclusionLoc = glGetUniformLocation(shaderProgram, "aoMap");
-    glUniform1i(ambientOcclusionLoc, 4);
-    int emissionLoc = glGetUniformLocation(shaderProgram, "emissionMap");
-    glUniform1i(emissionLoc, 5);
+    int skyboxLoc = glGetUniformLocation(shaderProgram, "skybox");
+    glUniform1i(skyboxLoc, 0);
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, albedoTexture);
-
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, normalTexture);
-
-    glActiveTexture(GL_TEXTURE2);
-    glBindTexture(GL_TEXTURE_2D, metallicTexture);
-
-    glActiveTexture(GL_TEXTURE3);
-    glBindTexture(GL_TEXTURE_2D, roughnessTexture);
-
-    glActiveTexture(GL_TEXTURE4);
-    glBindTexture(GL_TEXTURE_2D, ambientOcclusionTexture);
-
-    glActiveTexture(GL_TEXTURE5);
-    glBindTexture(GL_TEXTURE_2D, emissionTexture);
-
-
-    for (int i = 0; i < extraTextures.size(); i++)
+    switch (type)
     {
-        glActiveTexture(GL_TEXTURE6 + i);
-        glBindTexture(GL_TEXTURE_2D, extraTextures[i]);
+    case DEFAULT_LIT:
+        loadDefaultLitTextures();
+        break;
+    case CUBEMAP:
+        glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTexture);
+        break;
+    default:
+        loadDefaultLitTextures();
+        break;
     }
+
+    
 }
 
 void Material::setAlbedoTexture(const char* path, int type)
@@ -151,6 +133,57 @@ void Material::setOpacityTexture(const char* path, int type)
     default:
         opacityTexture = Resource.loadPNG(path);
         break;
+    }
+}
+
+void Material::setCubeMapTexture(vector<const char*> paths)
+{
+    cubeMapTexture = Resource.loadCubeMap(paths);
+}
+
+void Material::loadDefaultLitTextures()
+{
+    int albedoLoc = glGetUniformLocation(shaderProgram, "albedoMap");
+    glUniform1i(albedoLoc, 0);
+    int normalLoc = glGetUniformLocation(shaderProgram, "normalMap");
+    glUniform1i(normalLoc, 1);
+    int metallicLoc = glGetUniformLocation(shaderProgram, "metallicMap");
+    glUniform1i(metallicLoc, 2);
+    int roughnessLoc = glGetUniformLocation(shaderProgram, "roughnessMap");
+    glUniform1i(roughnessLoc, 3);
+    int ambientOcclusionLoc = glGetUniformLocation(shaderProgram, "aoMap");
+    glUniform1i(ambientOcclusionLoc, 4);
+    int emissionLoc = glGetUniformLocation(shaderProgram, "emissionMap");
+    glUniform1i(emissionLoc, 5);
+    int opacityLoc = glGetUniformLocation(shaderProgram, "opacityMap");
+    glUniform1i(opacityLoc, 6);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, albedoTexture);
+
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, normalTexture);
+
+    glActiveTexture(GL_TEXTURE2);
+    glBindTexture(GL_TEXTURE_2D, metallicTexture);
+
+    glActiveTexture(GL_TEXTURE3);
+    glBindTexture(GL_TEXTURE_2D, roughnessTexture);
+
+    glActiveTexture(GL_TEXTURE4);
+    glBindTexture(GL_TEXTURE_2D, ambientOcclusionTexture);
+
+    glActiveTexture(GL_TEXTURE5);
+    glBindTexture(GL_TEXTURE_2D, emissionTexture);
+
+    glActiveTexture(GL_TEXTURE6);
+    glBindTexture(GL_TEXTURE_2D, opacityTexture);
+
+
+    for (int i = 0; i < extraTextures.size(); i++)
+    {
+        glActiveTexture(GL_TEXTURE7 + i);
+        glBindTexture(GL_TEXTURE_2D, extraTextures[i]);
     }
 }
 

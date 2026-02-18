@@ -28,6 +28,8 @@ public:
 	unsigned int loadPNG(const char* path);
 	unsigned int loadJPG(const char* path);
 
+	unsigned int loadCubeMap(vector<const char*> paths);
+
 	vector<Mesh*> getMeshFromMap(string path);
 	void addMeshToMap(string path, vector<Mesh*> mesh);
 

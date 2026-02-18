@@ -24,6 +24,13 @@ public:
 			texCoords = vec2(0.0f);
 		}
 
+		Vertex(vec3 position) 
+		{
+			this->position = position;
+			normal = vec3(0.0f);
+			texCoords = vec2(0.0f);
+		}
+
 		Vertex(vec3 position, vec3 normal, vec2 texCoords) {
 			this->position = position;
 			this->normal = normal;
@@ -42,11 +49,13 @@ public:
 
 	Material* material;
 
-	void Draw();
+	virtual void Draw();
 
-private:
+protected:
 	//  render data
 	unsigned int VAO, VBO, EBO;
+
+private:
 
 	void setupMesh();
 	void setUpShaderMatrices(unsigned int shaderProgram);
@@ -55,4 +64,6 @@ private:
 	void setUpPointLights(unsigned int shaderProgram);
 
 	Object* parent;
+
+	bool once;
 };

@@ -7,15 +7,15 @@ out vec2 TexCoords;
 out vec3 WorldPos;
 out vec3 Normal;
 
-uniform mat4 modelViewProjection;
-uniform mat4 modelView;
 uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
 
 void main()
 {
     TexCoords = aTexCoords;
     WorldPos = vec3(model * vec4(aPos, 1.0));
-    Normal = vec3(transpose(inverse(modelView)) * vec4(aNormal, 1.0)); 
+    Normal = vec3(transpose(inverse(view * model)) * vec4(aNormal, 1.0)); 
 
-    gl_Position = modelViewProjection * vec4(aPos, 1.0);
+    gl_Position = projection * view * model * vec4(aPos, 1.0);
 }

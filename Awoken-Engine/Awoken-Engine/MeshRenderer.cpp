@@ -6,6 +6,7 @@
 #include "Mesh.h"
 #include "Camera.h"
 #include "Material.h"
+#include "CubeMap.h"
 #include <glad/glad.h>
 #include "glm.hpp"
 #include "gtc/type_ptr.hpp"
@@ -17,17 +18,11 @@ MeshRenderer::MeshRenderer(Object* _parent) : Component(_parent)
     material = new Material();
 }
 
-MeshRenderer::MeshRenderer(Object* _parent, const char* path) : Component(_parent)
-{
-    type = "MeshRenderer";
-    material = new Material();
-    loadModel(path);
-}
-
 void MeshRenderer::Update()
 {
     for (unsigned int i = 0; i < meshes.size(); i++)
     {
+        meshes[i]->material = material;
         meshes[i]->setParent(getParent());
         meshes[i]->Draw();
     }
@@ -70,6 +65,14 @@ void MeshRenderer::processNode(aiNode* node, const aiScene* scene, string path)
     }
 
     Resource.addMeshToMap(path, meshes);
+}
+
+void MeshRenderer::loadCubeMap(vector<const char*> paths)
+{
+    loadModel("assets/defaultAssets/Cube/cube.fbx");
+    material->setCubeMapTexture(paths);
+    material->type = MaterialType::CUBEMAP;
+    material->setShaderProgram("assets/defaultAssets/cubeMap.vert", "assets/defaultAssets/cubeMap.frag");
 }
 
 Mesh* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene)

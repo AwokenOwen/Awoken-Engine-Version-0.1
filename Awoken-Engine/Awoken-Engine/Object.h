@@ -36,7 +36,8 @@ public:
 	//get the parent object if there is one
 	Object* getParent();
 
-	Component* addComponent(Component* component);
+	template <typename T> T* addComponent();
+	template <typename T> T* getComponent();
 	Component* getComponent(string type);
 
 	void setActive(bool activeState);
@@ -99,3 +100,31 @@ private:
 
 	bool firstFrame = true;
 };
+
+template<typename T>
+inline T* Object::addComponent()
+{
+	static_assert(std::is_base_of<Component, T>());
+
+	T* a = new T(this);
+
+	components.push_back(a);
+	componentsSize++;
+	return a;
+}
+
+template<typename T>
+inline T* Object::getComponent()
+{
+	static_assert(std::is_base_of<Component, T>());
+
+	for (int i = 0; i < componentsSize; i++)
+	{
+		if (reinterpret_cast<T*>(components[i]))
+		{
+			return reinterpret_cast<T*>(components[i]);
+		}
+	}
+
+	return nullptr;
+}

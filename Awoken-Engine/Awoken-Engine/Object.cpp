@@ -121,13 +121,6 @@ Object* Object::getParent()
 	return parent;
 }
 
-Component* Object::addComponent(Component* component)
-{
-	components.push_back(component);
-	componentsSize++;
-	return component;
-}
-
 Component* Object::getComponent(string type)
 {
 	for (int i = 0; i < componentsSize; i++)

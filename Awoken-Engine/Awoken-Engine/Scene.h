@@ -30,6 +30,8 @@ public:
 
 	Camera* getCamera();
 
+	void setSkybox(vector<const char*> paths);
+
 	vec3 ambientColor;
 	float ambientPower;
 
@@ -38,6 +40,8 @@ public:
 	vector<PointLight*> pointLights;
 
 private:
+	void DrawSkybox();
+
 	vector<Object*> inScene;
 	vector<Object*> toBeAdded;
 	vector<Object*> toBeDeleted;
@@ -45,4 +49,5 @@ private:
 	string name;
 
 	Camera* camera = nullptr;
+	Object* skybox = nullptr;
 };
