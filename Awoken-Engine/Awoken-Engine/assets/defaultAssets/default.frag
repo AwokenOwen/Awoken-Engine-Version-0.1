@@ -31,51 +31,56 @@ uniform vec3 camPos;
 
 const float PI = 3.14159265359;
   
-vec3 CreateMaterial(vec3 _albedo, float _metallic, float _roughness, float _ao, vec3 _emission);
+vec3 CreateMaterial(vec3 _albedo, vec3 _normal, float _metallic, float _roughness, float _ao, vec3 _emission);
 float DistributionGGX(vec3 N, vec3 H, float roughness);
 float GeometrySchlickGGX(float NdotV, float roughness);
 float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness);
 vec3 fresnelSchlick(float cosTheta, vec3 F0);
-vec3 getNormalFromMap();
+vec3 getNormalFromMap(sampler2D _normalMap);
 vec3 CalcDirectionalLight(vec3 albedo, float metallic, float roughness, vec3 N, vec3 V, vec3 L, vec3 F0);
 vec3 CalcOtherLight(vec3 albedo, float metallic, float roughness, vec3 N, vec3 V, vec3 L, vec3 F0, vec3 lightColor, float lightPower);
 
 void main() {
-    // Default Values
-    // White
     vec3 albedo     = pow(texture2D(albedoMap, TexCoords).rgb, vec3(2.2));
-    // 1.0
+    vec3 normal     = texture2D(normalMap, TexCoords).rgb;
     float metallic  = texture2D(metallicMap, TexCoords).r;
-    // 1.0
     float roughness = clamp(texture2D(roughnessMap, TexCoords).r, 0.1, 1.0);
-    // 1.0
     float ao        = texture2D(aoMap, TexCoords).r;
-    // 0.0 Coming Soon need to impliment
+    //Coming Soon need to impliment
     vec3 emission   = texture2D(emissionMap, TexCoords).rgb * 0.0;
-    //1.0
+    //Coming Soon need to impliment
     float opacity   = texture2D(opacityMap, TexCoords / 1.0).r;
    
-   // Do calculations here to customize input values
-
-    roughness = 0.5;
+    // Default Values can be removed
+    albedo = vec3(0.8);
+    normal = normalize(Normal);
     metallic = 0.5;
+    roughness = 0.5;
+    ao = 1.0;
+    emission = vec3(0.0);
     opacity = 1.0;
 
-   // Running Normal Lighting Calculations
-   vec3 color = CreateMaterial(albedo, metallic, roughness, ao, emission);
+    // Do calculations here to customize input values
 
-   // Setting Color
-   FragColor = vec4(color, 1.0);
+
+
+
+
+    // Running Normal Lighting Calculations
+    vec3 color = CreateMaterial(albedo, normal, metallic, roughness, ao, emission);
+
+    // Setting Color
+    FragColor = vec4(color, 1.0);
 }
 
-vec3 CreateMaterial(vec3 _albedo, float _metallic, float _roughness, float _ao, vec3 _emission){
+vec3 CreateMaterial(vec3 _albedo, vec3 _normal, float _metallic, float _roughness, float _ao, vec3 _emission){
     vec3 albedo     = _albedo;
     float metallic  = _metallic;
     float roughness = _roughness;
     float ao        = _ao;
     vec3 emission   = _emission;
 
-    vec3 N = normalize(Normal);
+    vec3 N = _normal;
     vec3 V = normalize(camPos - WorldPos);
 
     vec3 F0 = vec3(0.04); 
@@ -134,8 +139,8 @@ float GeometrySmith(vec3 N, vec3 V, vec3 L, float roughness){
 vec3 fresnelSchlick(float cosTheta, vec3 F0){
     return F0 + (1.0 - F0) * pow(clamp(1.0 - cosTheta, 0.0, 1.0), 5.0);
 }
-vec3 getNormalFromMap(){
-    vec3 tangentNormal = texture2D(normalMap, TexCoords).xyz * 2.0 - 1.0;
+vec3 getNormalFromMap(sampler2D _normalMap){
+    vec3 tangentNormal = texture2D(_normalMap, TexCoords).xyz * 2.0 - 1.0;
 
     vec3 Q1  = dFdx(WorldPos);
     vec3 Q2  = dFdy(WorldPos);

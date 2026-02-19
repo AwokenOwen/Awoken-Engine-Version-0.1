@@ -135,6 +135,16 @@ void Mesh::setUpPointLights(unsigned int shaderProgram)
 void Mesh::Draw()
 {
     // draw mesh
+    if (!material->twoSided)
+    {
+        if (material->type == MaterialType::CUBEMAP)
+        {
+            glCullFace(GL_FRONT);
+        }
+        else {
+            glCullFace(GL_BACK);
+        }
+    }
     unsigned int shaderProgram = material->getShaderProgram();
 
     glUseProgram(shaderProgram);

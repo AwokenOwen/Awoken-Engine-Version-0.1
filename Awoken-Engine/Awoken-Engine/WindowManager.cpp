@@ -15,6 +15,8 @@ int WindowManager::Initialize()
 	createWindow();
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	//glEnable(GL_BLEND);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	return 0;
@@ -100,6 +102,8 @@ int WindowManager::createWindow()
 		return 0;
 	}
 	glfwMakeContextCurrent(window);
+
+	glfwMaximizeWindow(window);
 
 	//NOTE: Init GLAD
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))

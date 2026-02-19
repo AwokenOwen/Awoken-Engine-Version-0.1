@@ -38,6 +38,8 @@ public:
 
 	MaterialType type;
 
+	bool twoSided;
+
 private:
 
 	void loadDefaultLitTextures();

@@ -69,7 +69,7 @@ void MeshRenderer::processNode(aiNode* node, const aiScene* scene, string path)
 
 void MeshRenderer::loadCubeMap(vector<const char*> paths)
 {
-    loadModel("assets/defaultAssets/Cube/cube.fbx");
+    loadModel("assets/defaultAssets/cube.fbx");
     material->setCubeMapTexture(paths);
     material->type = MaterialType::CUBEMAP;
     material->setShaderProgram("assets/defaultAssets/cubeMap.vert", "assets/defaultAssets/cubeMap.frag");

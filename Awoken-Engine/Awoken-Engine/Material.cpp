@@ -11,6 +11,7 @@ Material::Material()
 {
     setShaderProgram("assets/defaultAssets/default.vert", "assets/defaultAssets/default.frag");
     type = MaterialType::DEFAULT_LIT;
+    twoSided = false;
 }
 
 Material::Material(const char* vertexShaderPath, const char* fragmentShaderPath)

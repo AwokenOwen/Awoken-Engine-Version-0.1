@@ -13,12 +13,12 @@ int main()
 	new DirectionalLight;
 	
 	vector<const char*> paths = {
-		"assets/defaultAssets/CubeMap/right.jpg",
-		"assets/defaultAssets/CubeMap/left.jpg",
-		"assets/defaultAssets/CubeMap/top.jpg",
-		"assets/defaultAssets/CubeMap/bottom.jpg",
-		"assets/defaultAssets/CubeMap/front.jpg",
-		"assets/defaultAssets/CubeMap/back.jpg"
+		"assets/defaultAssets/Skybox/right.jpg",
+		"assets/defaultAssets/Skybox/left.jpg",
+		"assets/defaultAssets/Skybox/top.jpg",
+		"assets/defaultAssets/Skybox/bottom.jpg",
+		"assets/defaultAssets/Skybox/front.jpg",
+		"assets/defaultAssets/Skybox/back.jpg"
 	};
 
 	World.getActiveScene()->setSkybox(paths);
@@ -27,8 +27,7 @@ int main()
 	a->SetLocalPosition(vec3(0, 0, -5));
 	a->SetLocalRotation(quat(vec3(-45, 45, 0)));
 	MeshRenderer* m = a->addComponent<MeshRenderer>();
-	m->loadModel("assets/defaultAssets/Cube/cube.fbx");
-	m->material->setAlbedoTexture("assets/defaultAssets/Cube/Material_Base_color.png", 1);
+	m->loadModel("assets/defaultAssets/cube.fbx");
 
 	GM.Run();
 
