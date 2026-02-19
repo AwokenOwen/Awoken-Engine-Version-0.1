@@ -3,13 +3,21 @@
 
 Camera::Camera() : Object()
 {
-	
+	alpha = 0;
 }
 
 mat4 Camera::getViewMatrix()
 {
-	mat4 viewMatrix = translate(mat4(1.0f), -GetWorldPosition());
-	viewMatrix = rotate(viewMatrix, -angle(GetWorldRotation()), axis(GetWorldRotation()));
+	worldModelMatrix();
 
-	return viewMatrix;
+	//replace vec3(0.0) with GetWorldPosition() + forward
+	return lookAt(GetWorldPosition(), vec3(0.0), up);
+}
+
+void Camera::Update()
+{
+	alpha += 0.005;
+	SetLocalPosition(vec3(5 * sin(alpha), 0.0f, 5 * cos(alpha)));
+
+	Object::Update();
 }

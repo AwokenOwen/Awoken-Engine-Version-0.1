@@ -180,6 +180,7 @@ void Material::loadDefaultLitTextures()
     glActiveTexture(GL_TEXTURE6);
     glBindTexture(GL_TEXTURE_2D, opacityTexture);
 
+    glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTexture);
 
     for (int i = 0; i < extraTextures.size(); i++)
     {

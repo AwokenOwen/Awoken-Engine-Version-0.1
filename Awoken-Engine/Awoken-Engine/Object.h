@@ -69,7 +69,7 @@ public:
 	void Rotate(vec3 eularRotation);
 	void Scale(vec3 scaleFactors);
 
-private:
+protected:
 	Object* parent = nullptr;
 
 	vector<Object*> children;

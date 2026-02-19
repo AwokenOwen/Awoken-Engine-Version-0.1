@@ -69,7 +69,7 @@ void WindowManager::Swap()
 
 mat4 WindowManager::getProjectionMatrix()
 {
-	return glm::perspective(glm::radians(100.0f), (float)Window.getWidth() / (float)Window.getHeight(), 0.1f, 100.0f);;
+	return glm::perspective(glm::radians(80.0f), (float)Window.getWidth() / (float)Window.getHeight(), 0.1f, 100.0f);;
 }
 
 //Private contructor for singleton functionallity

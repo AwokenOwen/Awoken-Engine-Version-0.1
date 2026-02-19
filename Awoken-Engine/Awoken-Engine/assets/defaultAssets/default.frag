@@ -15,6 +15,9 @@ uniform sampler2D opacityMap;
 
 // Extra textures - add uniform sampler2D for each extra texture added
 
+//Skybox
+uniform samplerCube skybox;
+
 // lights
 uniform vec3 ambientColor;
 uniform float ambientPower;
@@ -98,6 +101,9 @@ vec3 CreateMaterial(vec3 _albedo, vec3 _normal, float _metallic, float _roughnes
         Lo += CalcOtherLight(albedo, metallic, roughness, N, V, lightPositions[i], F0, lightColors[i], lightPowers[i]);
     }   
   
+    vec3 refl = reflect(normalize(WorldPos - camPos), normalize(Normal));
+    vec3 reflection = texture(skybox, refl).rgb;
+
     vec3 ambient = ambientPower * ambientColor;
     ambient *= albedo * ao;
     vec3 color = Lo + ambient;
@@ -105,7 +111,7 @@ vec3 CreateMaterial(vec3 _albedo, vec3 _normal, float _metallic, float _roughnes
     color = color / (color + vec3(1.0));
     color = pow(color, vec3(1.0/2.2));
 
-    return color;
+    return color + reflection;
 }
 float DistributionGGX(vec3 N, vec3 H, float roughness){
     float a      = roughness*roughness;

@@ -2,7 +2,9 @@
 #include "DirectionalLight.h"
 #include "WorldManager.h"
 #include "MeshRenderer.h"
+#include "Camera.h"
 #include "Material.h"
+#include "Mesh.h"
 
 #include <vector>
 
@@ -24,8 +26,8 @@ int main()
 	World.getActiveScene()->setSkybox(paths);
 
 	Object* a = new Object;
-	a->SetLocalPosition(vec3(0, 0, -5));
-	a->SetLocalRotation(quat(vec3(-45, 45, 0)));
+	a->SetLocalPosition(vec3(0, 0, 0));
+	a->SetLocalRotation(quat(vec3((3.14f/2.0f), 0, 0)));
 	MeshRenderer* m = a->addComponent<MeshRenderer>();
 	m->loadModel("assets/defaultAssets/cube.fbx");
 
