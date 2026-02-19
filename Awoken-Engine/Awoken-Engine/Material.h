@@ -24,17 +24,12 @@ public:
 	void loadTextures();
 
 	// Load Texture from path
-	void setAlbedoTexture(const char* path, int type = 0);
-	void setNormalTexture(const char* path, int type = 0);
-	void setMetallicTexture(const char* path, int type = 0);
-	void setRoughnessTexture(const char* path, int type = 0);
-	void setAmbientOcclusionTexture(const char* path, int type = 0);
-	void setEmissionTexture(const char* path, int type = 0);
-	void setOpacityTexture(const char* path, int type = 0);
+	void setTexture(const char* path);
+	void setTexture(const char* path, int index);
 
 	void setCubeMapTexture(vector<const char*> paths);
 
-	vector<unsigned int> extraTextures;
+	vector<unsigned int> textures;
 
 	MaterialType type;
 
@@ -60,7 +55,7 @@ private:
 	// Opacity Texture
 	unsigned int opacityTexture;
 
-	unsigned int cubeMapTexture;
+	unsigned int skyboxTexture;
 
 	// Shader Program
 	unsigned int shaderProgram;

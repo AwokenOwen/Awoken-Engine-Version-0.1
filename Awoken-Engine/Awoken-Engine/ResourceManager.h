@@ -25,8 +25,7 @@ public:
 	//grab a scene from the assets folder and load it into the World Manager
 	int loadScene(string name);
 
-	unsigned int loadPNG(const char* path);
-	unsigned int loadJPG(const char* path);
+	unsigned int loadImage(const char* path);
 
 	unsigned int loadCubeMap(vector<const char*> paths);
 

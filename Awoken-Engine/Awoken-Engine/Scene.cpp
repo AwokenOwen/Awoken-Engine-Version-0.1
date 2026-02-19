@@ -8,6 +8,7 @@
 #include "Object.h"
 #include "DirectionalLight.h"
 #include "MeshRenderer.h"
+#include "Material.h"
 
 Scene::Scene()
 {
@@ -106,6 +107,7 @@ void Scene::setSkybox(vector<const char*> paths)
 		m = skybox->getComponent<MeshRenderer>();
 	}
 	m->loadCubeMap(paths);
+	m->material->setShaderProgram("assets/defaultAssets/skybox.vert", "assets/defaultAssets/skybox.frag");
 	skybox->setActive(false);
 }
 

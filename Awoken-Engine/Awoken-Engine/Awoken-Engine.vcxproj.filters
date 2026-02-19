@@ -136,10 +136,10 @@
     <None Include="assets\defaultAssets\default.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\defaultAssets\cubeMap.frag">
+    <None Include="assets\defaultAssets\skybox.frag">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\defaultAssets\cubeMap.vert">
+    <None Include="assets\defaultAssets\skybox.vert">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

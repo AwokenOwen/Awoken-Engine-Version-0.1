@@ -72,7 +72,6 @@ void MeshRenderer::loadCubeMap(vector<const char*> paths)
     loadModel("assets/defaultAssets/cube.fbx");
     material->setCubeMapTexture(paths);
     material->type = MaterialType::CUBEMAP;
-    material->setShaderProgram("assets/defaultAssets/cubeMap.vert", "assets/defaultAssets/cubeMap.frag");
 }
 
 Mesh* MeshRenderer::processMesh(aiMesh* mesh, const aiScene* scene)

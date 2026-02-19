@@ -36,7 +36,7 @@ void Material::loadTextures()
         loadDefaultLitTextures();
         break;
     case CUBEMAP:
-        glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTexture);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTexture);
         break;
     default:
         loadDefaultLitTextures();
@@ -46,147 +46,33 @@ void Material::loadTextures()
     
 }
 
-void Material::setAlbedoTexture(const char* path, int type)
+void Material::setTexture(const char* path)
 {
-    switch (type)
-    {
-    case 0:
-        albedoTexture = Resource.loadJPG(path);
-        break;
-    default:
-        albedoTexture = Resource.loadPNG(path);
-        break;
-    }
+    textures.push_back(Resource.loadImage(path));
 }
 
-void Material::setMetallicTexture(const char* path, int type)
+void Material::setTexture(const char* path, int index)
 {
-    switch (type)
-    {
-    case 0:
-        metallicTexture = Resource.loadJPG(path);
-        break;
-    default:
-        metallicTexture = Resource.loadPNG(path);
-        break;
-    }
-}
-
-void Material::setNormalTexture(const char* path, int type)
-{
-    switch (type)
-    {
-    case 0:
-        normalTexture = Resource.loadJPG(path);
-        break;
-    default:
-        normalTexture = Resource.loadPNG(path);
-        break;
-    }
-}
-
-void Material::setRoughnessTexture(const char* path, int type)
-{
-    switch (type)
-    {
-    case 0:
-        roughnessTexture = Resource.loadJPG(path);
-        break;
-    default:
-        roughnessTexture = Resource.loadPNG(path);
-        break;
-    }
-}
-
-void Material::setAmbientOcclusionTexture(const char* path, int type)
-{
-    switch (type)
-    {
-    case 0:
-        ambientOcclusionTexture = Resource.loadJPG(path);
-        break;
-    default:
-        ambientOcclusionTexture = Resource.loadPNG(path);
-        break;
-    }
-}
-
-void Material::setEmissionTexture(const char* path, int type)
-{
-    switch (type)
-    {
-    case 0:
-        emissionTexture = Resource.loadJPG(path);
-        break;
-    default:
-        emissionTexture = Resource.loadPNG(path);
-        break;
-    }
-}
-
-void Material::setOpacityTexture(const char* path, int type)
-{
-    switch (type)
-    {
-    case 0:
-        opacityTexture = Resource.loadJPG(path);
-        break;
-    default:
-        opacityTexture = Resource.loadPNG(path);
-        break;
-    }
+    textures[index] = Resource.loadImage(path);
 }
 
 void Material::setCubeMapTexture(vector<const char*> paths)
 {
-    cubeMapTexture = Resource.loadCubeMap(paths);
+    skyboxTexture = Resource.loadCubeMap(paths);
 }
 
 void Material::loadDefaultLitTextures()
 {
-    int albedoLoc = glGetUniformLocation(shaderProgram, "albedoMap");
-    glUniform1i(albedoLoc, 0);
-    int normalLoc = glGetUniformLocation(shaderProgram, "normalMap");
-    glUniform1i(normalLoc, 1);
-    int metallicLoc = glGetUniformLocation(shaderProgram, "metallicMap");
-    glUniform1i(metallicLoc, 2);
-    int roughnessLoc = glGetUniformLocation(shaderProgram, "roughnessMap");
-    glUniform1i(roughnessLoc, 3);
-    int ambientOcclusionLoc = glGetUniformLocation(shaderProgram, "aoMap");
-    glUniform1i(ambientOcclusionLoc, 4);
-    int emissionLoc = glGetUniformLocation(shaderProgram, "emissionMap");
-    glUniform1i(emissionLoc, 5);
-    int opacityLoc = glGetUniformLocation(shaderProgram, "opacityMap");
-    glUniform1i(opacityLoc, 6);
-
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, albedoTexture);
-
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, normalTexture);
-
-    glActiveTexture(GL_TEXTURE2);
-    glBindTexture(GL_TEXTURE_2D, metallicTexture);
-
-    glActiveTexture(GL_TEXTURE3);
-    glBindTexture(GL_TEXTURE_2D, roughnessTexture);
-
-    glActiveTexture(GL_TEXTURE4);
-    glBindTexture(GL_TEXTURE_2D, ambientOcclusionTexture);
-
-    glActiveTexture(GL_TEXTURE5);
-    glBindTexture(GL_TEXTURE_2D, emissionTexture);
-
-    glActiveTexture(GL_TEXTURE6);
-    glBindTexture(GL_TEXTURE_2D, opacityTexture);
-
-    glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTexture);
-
-    for (int i = 0; i < extraTextures.size(); i++)
+    for (int i = 0; i < textures.size(); i++)
     {
-        glActiveTexture(GL_TEXTURE7 + i);
-        glBindTexture(GL_TEXTURE_2D, extraTextures[i]);
+        int loc = glGetUniformLocation(shaderProgram, string("texture[" + to_string(i) + "]").c_str());
+        glUniform1i(loc, i);
+
+        glActiveTexture(GL_TEXTURE0 + i);
+        glBindTexture(GL_TEXTURE_2D, textures[i]);
     }
+
+    glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTexture);
 }
 
 void Material::setShaderProgram(const char* vertexShaderPath, const char* fragmentShaderPath)

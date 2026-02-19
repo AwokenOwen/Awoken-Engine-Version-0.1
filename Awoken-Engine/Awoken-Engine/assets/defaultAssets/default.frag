@@ -4,16 +4,10 @@ in vec2 TexCoords;
 in vec3 WorldPos;
 in vec3 Normal;
 
-// material textures
-uniform sampler2D albedoMap;
-uniform sampler2D normalMap;
-uniform sampler2D metallicMap;
-uniform sampler2D roughnessMap;
-uniform sampler2D aoMap;
-uniform sampler2D emissionMap;
-uniform sampler2D opacityMap;
-
-// Extra textures - add uniform sampler2D for each extra texture added
+// change to number of textures needed for object
+// Make sure it's changed in vertex as well
+#define NUM_TEXTURES 1
+uniform sampler2D texture[NUM_TEXTURES];
 
 //Skybox
 uniform samplerCube skybox;
@@ -44,25 +38,14 @@ vec3 CalcDirectionalLight(vec3 albedo, float metallic, float roughness, vec3 N, 
 vec3 CalcOtherLight(vec3 albedo, float metallic, float roughness, vec3 N, vec3 V, vec3 L, vec3 F0, vec3 lightColor, float lightPower);
 
 void main() {
-    vec3 albedo     = pow(texture2D(albedoMap, TexCoords).rgb, vec3(2.2));
-    vec3 normal     = texture2D(normalMap, TexCoords).rgb;
-    float metallic  = texture2D(metallicMap, TexCoords).r;
-    float roughness = clamp(texture2D(roughnessMap, TexCoords).r, 0.1, 1.0);
-    float ao        = texture2D(aoMap, TexCoords).r;
-    //Coming Soon need to impliment
-    vec3 emission   = texture2D(emissionMap, TexCoords).rgb * 0.0;
-    //Coming Soon need to impliment
-    float opacity   = texture2D(opacityMap, TexCoords / 1.0).r;
-   
     // Default Values can be removed
-    albedo = vec3(0.8);
-    normal = normalize(Normal);
-    metallic = 0.5;
-    roughness = 0.5;
-    ao = 1.0;
-    emission = vec3(0.0);
-    opacity = 1.0;
-
+    vec3 albedo     = pow(vec3(1.0), vec3(2.2));
+    vec3 normal = normalize(Normal);
+    float metallic = 0.5;
+    float roughness = 0.5;
+    float ao = 1.0;
+    //Coming Soon
+    vec3 emission = vec3(0.0);
     // Do calculations here to customize input values
 
 
@@ -111,7 +94,7 @@ vec3 CreateMaterial(vec3 _albedo, vec3 _normal, float _metallic, float _roughnes
     color = color / (color + vec3(1.0));
     color = pow(color, vec3(1.0/2.2));
 
-    return color + reflection;
+    return color;
 }
 float DistributionGGX(vec3 N, vec3 H, float roughness){
     float a      = roughness*roughness;
