@@ -7,9 +7,5 @@ public:
 	Camera();
 
 	mat4 getViewMatrix();
-
-	void Update() override;
-
-	float alpha;
 };
 
