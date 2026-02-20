@@ -137,6 +137,8 @@ void Mesh::Draw()
     // draw mesh
     if (!material->twoSided)
     {
+        glEnable(GL_CULL_FACE);
+
         if (material->type == MaterialType::CUBEMAP)
         {
             glCullFace(GL_FRONT);
@@ -144,6 +146,10 @@ void Mesh::Draw()
         else {
             glCullFace(GL_BACK);
         }
+    }
+    else
+    {
+        glDisable(GL_CULL_FACE);
     }
     unsigned int shaderProgram = material->getShaderProgram();
 

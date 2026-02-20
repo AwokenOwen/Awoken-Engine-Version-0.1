@@ -111,6 +111,20 @@ void Scene::setSkybox(vector<const char*> paths)
 	skybox->setActive(false);
 }
 
+void Scene::loadDefaultSkybox()
+{
+	vector<const char*> paths = {
+	"assets/defaultAssets/Skybox/right.jpg",
+	"assets/defaultAssets/Skybox/left.jpg",
+	"assets/defaultAssets/Skybox/top.jpg",
+	"assets/defaultAssets/Skybox/bottom.jpg",
+	"assets/defaultAssets/Skybox/front.jpg",
+	"assets/defaultAssets/Skybox/back.jpg"
+	};
+
+	setSkybox(paths);
+}
+
 void Scene::DrawSkybox()
 {
 	if (skybox != nullptr)

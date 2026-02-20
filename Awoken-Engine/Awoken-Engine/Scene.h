@@ -31,6 +31,7 @@ public:
 	Camera* getCamera();
 
 	void setSkybox(vector<const char*> paths);
+	void loadDefaultSkybox();
 
 	vec3 ambientColor;
 	float ambientPower;

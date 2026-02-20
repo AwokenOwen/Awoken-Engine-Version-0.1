@@ -135,6 +135,23 @@ void ResourceManager::addMeshToMap(string path, vector<Mesh*> mesh)
 	meshMap.insert({ path, mesh });
 }
 
+unsigned int ResourceManager::getShaderProgramFromMap(string path)
+{
+	// If Texture already loaded grab loaded texture
+	auto mapShader = shaderMap.find(string(path));
+	if (mapShader != shaderMap.end())
+	{
+		return mapShader->second;
+	}
+
+	return -1;
+}
+
+void ResourceManager::addShaderProgramToMap(string path, unsigned int shaderProgram)
+{
+	shaderMap.insert({ path, shaderProgram });
+}
+
 ResourceManager::ResourceManager()
 {
 }

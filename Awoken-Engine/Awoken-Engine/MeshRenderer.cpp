@@ -16,6 +16,7 @@ MeshRenderer::MeshRenderer(Object* _parent) : Component(_parent)
 {
     type = "MeshRenderer";
     material = new Material();
+    //material = nullptr;
 }
 
 void MeshRenderer::Update()

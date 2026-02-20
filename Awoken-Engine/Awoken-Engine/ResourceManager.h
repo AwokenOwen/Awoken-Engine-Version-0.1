@@ -32,9 +32,13 @@ public:
 	vector<Mesh*> getMeshFromMap(string path);
 	void addMeshToMap(string path, vector<Mesh*> mesh);
 
+	unsigned int getShaderProgramFromMap(string path);
+	void addShaderProgramToMap(string path, unsigned int shaderProgram);
+
 private:
 	ResourceManager();
 
 	map<string, vector<Mesh*>> meshMap;
 	map<string, unsigned int> textureMap;
+	map<string, unsigned int> shaderMap;
 };

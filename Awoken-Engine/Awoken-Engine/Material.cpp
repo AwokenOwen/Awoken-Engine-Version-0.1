@@ -77,6 +77,15 @@ void Material::loadDefaultLitTextures()
 
 void Material::setShaderProgram(const char* vertexShaderPath, const char* fragmentShaderPath)
 {
+    std::string path = std::string(vertexShaderPath);
+    path += fragmentShaderPath;
+    unsigned int result = Resource.getShaderProgramFromMap(path);
+    if (result != -1)
+    {
+        shaderProgram = result;
+        return;
+    }
+
     // 1. retrieve the vertex/fragment source code from filePath
     std::string vertexCode;
     std::string fragmentCode;
@@ -145,6 +154,8 @@ void Material::setShaderProgram(const char* vertexShaderPath, const char* fragme
         glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::PROGRAM::COMILATION_FAILED\n" << infoLog << std::endl;
     }
+
+    Resource.addShaderProgramToMap(path, shaderProgram);
 
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
