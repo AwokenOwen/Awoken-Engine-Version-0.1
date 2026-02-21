@@ -57,6 +57,8 @@ protected:
 
 private:
 
+	bool materialOwner;
+
 	void setupMesh();
 	void setUpShaderMatrices(unsigned int shaderProgram);
 	void setUpShaderVariables(unsigned int shaderProgram);

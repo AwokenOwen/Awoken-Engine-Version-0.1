@@ -17,7 +17,13 @@ public:
 	//GameManager Singleton get function
 	static GameManager& getInstance();
 
+	float getTime();
+	float getDeltaTime();
+
 private:
 	//Private Constructor for singleton functionallity
 	GameManager();
+
+	float timeOnLastFrame = 0;
+	float deltaTime = 0;
 };

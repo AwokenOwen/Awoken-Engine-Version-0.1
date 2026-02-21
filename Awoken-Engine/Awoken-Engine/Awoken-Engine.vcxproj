@@ -186,10 +186,6 @@
     <None Include="assets\defaultAssets\default.vert" />
     <None Include="assets\defaultAssets\skybox.frag" />
     <None Include="assets\defaultAssets\skybox.vert" />
-    <None Include="assets\Shaders\grass.frag" />
-    <None Include="assets\Shaders\grass.vert" />
-    <None Include="assets\Shaders\grassPlane.frag" />
-    <None Include="assets\Shaders\grassPlane.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

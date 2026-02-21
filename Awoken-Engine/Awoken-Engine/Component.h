@@ -12,8 +12,6 @@ public:
 	Component();
 	Component(Object* _parent);
 
-	string type;
-
 	//called once at the start of a scene
 	virtual void Awake();
 	//called once at the start of the frame the object is enabled on

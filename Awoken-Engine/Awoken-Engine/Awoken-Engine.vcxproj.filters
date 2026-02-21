@@ -142,17 +142,5 @@
     <None Include="assets\defaultAssets\skybox.vert">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="assets\Shaders\grassPlane.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\Shaders\grassPlane.vert">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\Shaders\grass.frag">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\Shaders\grass.vert">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

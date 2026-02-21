@@ -38,7 +38,6 @@ public:
 
 	template <typename T> T* addComponent();
 	template <typename T> T* getComponent();
-	Component* getComponent(string type);
 
 	void setActive(bool activeState);
 	bool getActiveState();

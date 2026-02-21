@@ -1,5 +1,4 @@
 #include "Material.h"
-#include "glad/glad.h"
 #include "ResourceManager.h"
 #include <iostream>
 #include <string>
@@ -65,8 +64,7 @@ void Material::loadDefaultLitTextures()
 {
     for (int i = 0; i < textures.size(); i++)
     {
-        int loc = glGetUniformLocation(shaderProgram, string("texture[" + to_string(i) + "]").c_str());
-        glUniform1i(loc, i);
+        setUniform<int>(string("texture[" + to_string(i) + "]").c_str(), i);
 
         glActiveTexture(GL_TEXTURE0 + i);
         glBindTexture(GL_TEXTURE_2D, textures[i]);

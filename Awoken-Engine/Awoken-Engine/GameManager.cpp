@@ -57,6 +57,7 @@ void GameManager::Run()
 
 	while (!glfwWindowShouldClose(Window.getWindow()))
 	{
+		deltaTime = getTime() - timeOnLastFrame;
 		Window.Clear();
 
 		Input.processInputs(Window.getWindow());
@@ -65,6 +66,7 @@ void GameManager::Run()
 		World.LateUpdate();
 
 		Window.Swap();
+		timeOnLastFrame = getTime();
 	}
 }
 
@@ -90,6 +92,16 @@ GameManager& GameManager::getInstance()
 {
 	static GameManager single;
 	return single;
+}
+
+float GameManager::getTime()
+{
+	return float(glfwGetTime());
+}
+
+float GameManager::getDeltaTime()
+{
+	return deltaTime;
 }
 
 //Private Constructor for singleton functionallity

@@ -121,18 +121,6 @@ Object* Object::getParent()
 	return parent;
 }
 
-Component* Object::getComponent(string type)
-{
-	for (int i = 0; i < componentsSize; i++)
-	{
-		if (components[i]->type == type)
-		{
-			return components[i];
-		}
-	}
-	return nullptr;
-}
-
 void Object::setActive(bool activeState)
 {
 	if (activeState != enabled)

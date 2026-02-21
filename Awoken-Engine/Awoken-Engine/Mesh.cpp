@@ -9,6 +9,7 @@
 #include "PointLight.h"
 #include <gtc/type_ptr.hpp>
 #include "MeshRenderer.h"
+#include "GameManager.h"
 
 Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices)
 {
@@ -16,6 +17,7 @@ Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices)
     this->indices = indices;
 
     once = true;
+    materialOwner = false;
 
     setupMesh();
 }
@@ -60,8 +62,10 @@ void Mesh::setUpShaderMatrices(unsigned int shaderProgram)
         viewMatrix = glm::mat4(glm::mat3(viewMatrix));
     }
 
-    int modelLoc = glGetUniformLocation(shaderProgram, "model");
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
+    material->setUniform<mat4>("model", modelMatrix);
+
+    //int modelLoc = glGetUniformLocation(shaderProgram, "model");
+    //glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
     int viewLoc = glGetUniformLocation(shaderProgram, "view");
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(viewMatrix));
@@ -159,6 +163,9 @@ void Mesh::Draw()
     material->loadTextures();
 
     //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    material->setUniform<vec3>("objectPos", parent->GetLocalPosition());
+    material->setUniform<float>("time", GM.getTime());
 
     setUpShaderMatrices(shaderProgram);
     setUpShaderVariables(shaderProgram);
