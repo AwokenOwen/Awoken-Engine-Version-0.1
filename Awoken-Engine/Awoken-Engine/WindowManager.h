@@ -34,7 +34,8 @@ public:
 	//Swap buffers and pollevents
 	void Swap();
 
-	mat4 getProjectionMatrix();
+	mat4 getPerspectiveMatrix();
+	mat4 getOrthographicMatrix();
 
 private:
 	//Private contructor for singleton functionallity

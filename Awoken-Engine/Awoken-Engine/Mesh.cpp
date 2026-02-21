@@ -54,12 +54,56 @@ void Mesh::setUpShaderMatrices(unsigned int shaderProgram)
 {
     // Vertex Matrix Stuff
     mat4 modelMatrix = getParent()->worldModelMatrix();
-    mat4 projectionMatrix = Window.getProjectionMatrix();
+    mat4 projectionMatrix = Window.getPerspectiveMatrix();
     mat4 viewMatrix = World.getActiveScene()->getCamera()->getViewMatrix();
 
     if (material->type == MaterialType::CUBEMAP)
     {
         viewMatrix = glm::mat4(glm::mat3(viewMatrix));
+    }
+
+    if (material->type == MaterialType::UI)
+    {
+        projectionMatrix = Window.getOrthographicMatrix();
+        vec3 UIPos = getParent()->GetWorldPosition();
+
+        switch (material->anchorPoint)
+        {
+        case UIAnchorPoints::TOP:
+            UIPos.y += 1.0f;
+            break;
+        case UIAnchorPoints::BOTTOM:
+            UIPos.y += -1.0f;
+        case UIAnchorPoints::RIGHT:
+            UIPos.x += 1.0f;
+            break;
+        case UIAnchorPoints::LEFT:
+            UIPos.x += -1.0f;
+        case UIAnchorPoints::TOP_RIGHT:
+            UIPos.x += 1.0f;
+            UIPos.y += 1.0f;
+            break;
+        case UIAnchorPoints::BOTTOM_RIGHT:
+            UIPos.x += 1.0f;
+            UIPos.y += -1.0f;
+        case UIAnchorPoints::TOP_LEFT:
+            UIPos.y += 1.0f;
+            UIPos.x += -1.0f;
+            break;
+        case UIAnchorPoints::BOTTOM_LEFT:
+            UIPos.y += -1.0f;
+            UIPos.x += -1.0f;
+        default:
+            break;
+        }
+
+        UIPos = vec3(UIPos.x * (float)Window.getWidth() / (float)Window.getHeight(), UIPos.y, 0);
+
+        vec3 rotationVec = eulerAngles(getParent()->GetWorldRotation());
+        rotationVec.z = 0;
+        quat rotation = quat(rotationVec);
+
+        modelMatrix = translate(rotate(scale(mat4(1.0), getParent()->GetLocalScale()), angle(rotation), axis(rotation)), vec3(UIPos));
     }
 
     material->setUniform<mat4>("model", modelMatrix);

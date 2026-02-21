@@ -11,7 +11,20 @@ using namespace std;
 enum MaterialType
 {
 	DEFAULT_LIT,
-	CUBEMAP
+	CUBEMAP,
+	UI
+};
+
+enum UIAnchorPoints {
+	CENTER,
+	LEFT,
+	RIGHT,
+	TOP,
+	BOTTOM,
+	TOP_LEFT,
+	TOP_RIGHT,
+	BOTTOM_LEFT,
+	BOTTOM_RIGHT
 };
 
 class Material
@@ -37,13 +50,13 @@ public:
 
 	MaterialType type;
 
+	UIAnchorPoints anchorPoint;
+
 	bool twoSided;
 
 	template <typename T> void setUniform(std::string name, T value);
 
 private:
-
-	void loadDefaultLitTextures();
 
 	unsigned int skyboxTexture;
 

@@ -67,14 +67,22 @@ void WindowManager::Swap()
 	glfwPollEvents(); 
 }
 
-mat4 WindowManager::getProjectionMatrix()
+mat4 WindowManager::getPerspectiveMatrix()
 {
 	return glm::perspective(glm::radians(80.0f), (float)Window.getWidth() / (float)Window.getHeight(), 0.1f, 100.0f);;
+}
+
+mat4 WindowManager::getOrthographicMatrix()
+{
+	float scale = 1.0f;
+	float aspect = static_cast<float>(getWidth()) / static_cast<float>(getHeight());
+	return glm::ortho(-aspect * scale, aspect * scale, -scale, scale, 0.1f, 100.0f);
 }
 
 //Private contructor for singleton functionallity
 WindowManager::WindowManager()
 {
+	
 }
 
 //creates the window by grabbing the primary monitor setting the window to be 

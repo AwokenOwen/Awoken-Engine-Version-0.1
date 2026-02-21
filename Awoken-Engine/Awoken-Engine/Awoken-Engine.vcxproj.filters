@@ -142,5 +142,11 @@
     <None Include="assets\defaultAssets\skybox.vert">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="assets\defaultAssets\defaultUI.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\defaultAssets\defaultUI.vert">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

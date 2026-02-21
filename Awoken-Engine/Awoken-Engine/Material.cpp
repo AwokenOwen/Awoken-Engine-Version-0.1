@@ -10,6 +10,7 @@ Material::Material()
 {
     setShaderProgram("assets/defaultAssets/default.vert", "assets/defaultAssets/default.frag");
     type = MaterialType::DEFAULT_LIT;
+    anchorPoint = UIAnchorPoints::CENTER;
     twoSided = false;
 }
 
@@ -22,27 +23,6 @@ Material::Material(const char* vertexShaderPath, const char* fragmentShaderPath)
 unsigned int Material::getShaderProgram()
 {
     return shaderProgram;
-}
-
-void Material::loadTextures() 
-{
-    int skyboxLoc = glGetUniformLocation(shaderProgram, "skybox");
-    glUniform1i(skyboxLoc, 0);
-
-    switch (type)
-    {
-    case DEFAULT_LIT:
-        loadDefaultLitTextures();
-        break;
-    case CUBEMAP:
-        glBindTexture(GL_TEXTURE_CUBE_MAP, skyboxTexture);
-        break;
-    default:
-        loadDefaultLitTextures();
-        break;
-    }
-
-    
 }
 
 void Material::setTexture(const char* path)
@@ -60,7 +40,7 @@ void Material::setCubeMapTexture(vector<const char*> paths)
     skyboxTexture = Resource.loadCubeMap(paths);
 }
 
-void Material::loadDefaultLitTextures()
+void Material::loadTextures()
 {
     for (int i = 0; i < textures.size(); i++)
     {

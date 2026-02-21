@@ -54,7 +54,7 @@ void CubeMap::Draw()
 	glUseProgram(shaderProgram);
 
 	glm::mat4 view = glm::mat4(glm::mat3(World.getActiveScene()->getCamera()->getViewMatrix()));
-	glm::mat4 projection = Window.getProjectionMatrix();
+	glm::mat4 projection = Window.getPerspectiveMatrix();
 
 	int viewLoc = glGetUniformLocation(shaderProgram, "view");
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
