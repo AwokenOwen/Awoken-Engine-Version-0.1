@@ -27,12 +27,15 @@ public:
 	//get functions for the width and height of the screen
 	int getWidth();
 	int getHeight();
+	float getPixelRatio();
 
 	//Clear the color and depth buffers
 	void Clear();
 
 	//Swap buffers and pollevents
 	void Swap();
+
+	void setMaximized(bool maximized = true);
 
 	mat4 getPerspectiveMatrix();
 	mat4 getOrthographicMatrix();
@@ -45,4 +48,6 @@ private:
 	//"windowed fullscreen", then initializing glad, then finally creating the window
 	int createWindow();
 	GLFWwindow* window;
+
+	float monitorHeight;
 };

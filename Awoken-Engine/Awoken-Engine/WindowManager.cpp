@@ -13,6 +13,7 @@ int WindowManager::Initialize()
 {
 	glfwInit();
 	createWindow();
+	setMaximized();
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 	glEnable(GL_CULL_FACE);
@@ -52,6 +53,11 @@ int WindowManager::getHeight()
 	return height;
 }
 
+float WindowManager::getPixelRatio()
+{
+	return float(getHeight()) / monitorHeight;
+}
+
 //Clear the color and depth buffers
 void WindowManager::Clear()
 {
@@ -67,6 +73,17 @@ void WindowManager::Swap()
 	glfwPollEvents(); 
 }
 
+void WindowManager::setMaximized(bool maximized)
+{
+	if (maximized)
+	{
+		glfwMaximizeWindow(window);
+	}
+	else {
+		glfwRestoreWindow(window);
+	}
+}
+
 mat4 WindowManager::getPerspectiveMatrix()
 {
 	return glm::perspective(glm::radians(80.0f), (float)Window.getWidth() / (float)Window.getHeight(), 0.1f, 100.0f);;
@@ -74,9 +91,8 @@ mat4 WindowManager::getPerspectiveMatrix()
 
 mat4 WindowManager::getOrthographicMatrix()
 {
-	float scale = 1.0f;
 	float aspect = static_cast<float>(getWidth()) / static_cast<float>(getHeight());
-	return glm::ortho(-aspect * scale, aspect * scale, -scale, scale, 0.1f, 100.0f);
+	return glm::ortho(-aspect, aspect, -1.0f, 1.0f, 0.1f, 100.0f);
 }
 
 //Private contructor for singleton functionallity
@@ -100,6 +116,7 @@ int WindowManager::createWindow()
 
 	width = mode->width; 
 	height = mode->height; 
+	monitorHeight = (float)mode->height;
 
 	window = glfwCreateWindow(width, height, "Game Engine", NULL, NULL);
 
@@ -110,8 +127,6 @@ int WindowManager::createWindow()
 		return 0;
 	}
 	glfwMakeContextCurrent(window);
-
-	glfwMaximizeWindow(window);
 
 	//NOTE: Init GLAD
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -131,9 +146,23 @@ int WindowManager::createWindow()
 
 void framebuffer_size_callback(GLFWwindow* window, int _width, int _height)
 {
-	width = _width;
-	height = _height;
-	glViewport(0, 0, width, height);
+
+	if ((float)_width / (float)_height > 16.0f / 9.0f)
+	{
+		height = _height;
+		width = int(height * (16.0f / 9.0f));
+	}
+	else if ((float)_width / (float)_height < 16.0f / 9.0f)
+	{
+		width = _width;
+		height = int(width * (9.0f / 16.0f));
+	}
+	else
+	{
+		width = _width;
+		height = _height;
+	}
+	glViewport(int((_width - width) / 2.0f), int((_height - height) / 2.0f), width, height);
 }
 
 void mouse_cursor_callback(GLFWwindow* window, double xpos, double ypos)
